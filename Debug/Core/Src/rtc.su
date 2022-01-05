@@ -1,0 +1,9 @@
+rtc.c:35:6:MX_RTC_Init	24	static
+rtc.c:109:6:HAL_RTC_MspInit	24	static
+rtc.c:128:6:HAL_RTC_MspDeInit	16	static
+rtc.c:149:10:time2Stamp	56	static
+rtc.c:168:6:Stamp2time	56	static
+rtc.c:211:9:IsLeapYear	16	static
+rtc.c:223:6:getWEEK	24	static
+rtc.c:242:6:myRtc_Get_DateTime	24	static
+rtc.c:255:6:SetRtcCount	16	static

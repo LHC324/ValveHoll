@@ -1,0 +1,6 @@
+publicfunc.c:11:6:EndianSwap	24	static
+publicfunc.c:26:6:delayus	32	static
+publicfunc.c:59:10:Midfliter	24	static
+publicfunc.c:70:6:Sidefiter	32	static
+publicfunc.c:90:7:sidefilter	40	static
+publicfunc.c:130:7:kalmanFilter	24	static

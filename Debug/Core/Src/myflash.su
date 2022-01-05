@@ -1,0 +1,4 @@
+myflash.c:15:6:FLASH_Init	8	static
+myflash.c:29:10:FLASH_Read	40	static
+myflash.c:62:10:FLASH_Write	80	static
+myflash.c:167:17:FLASH_WriteNotCheck	32	static

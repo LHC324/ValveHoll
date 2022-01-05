@@ -1,0 +1,4 @@
+adc.c:33:6:MX_ADC1_Init	24	static
+adc.c:81:6:HAL_ADC_MspInit	40	static
+adc.c:125:6:HAL_ADC_MspDeInit	16	static
+adc.c:155:10:GetDmaAdcValue	40	static

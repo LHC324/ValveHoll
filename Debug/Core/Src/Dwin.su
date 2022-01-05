@@ -1,0 +1,16 @@
+Dwin.c:25:6:DWIN_SendWithCRC	224	static
+Dwin.c:46:6:DWIN_Send	16	static
+Dwin.c:59:6:DWIN_AnalyzeApp	16	static
+Dwin.c:81:6:DWIN_ReciveNew	24	static
+Dwin.c:99:6:DWIN_Init	4	static
+Dwin.c:112:6:DWIN_Poll	8	static
+Dwin.c:137:6:DWIN_WRITE	24	static
+Dwin.c:163:6:DWIN_READ	16	static
+Dwin.c:185:6:DWIN_83H	120	static
+Dwin.c:218:6:DWIN_PageChange	16	static
+Dwin.c:244:6:DWIN_TouchAction	24	static
+Dwin.c:281:10:getCrc16	24	static
+Dwin.c:315:6:DWIN_CURVE	24	static
+Dwin.c:347:6:DWIN_CURVE_MULTICHANNEL	24	static
+Dwin.c:381:6:DWIN_CURVE_CLEAR	16	static
+Dwin.c:404:6:DWIN_InportMap	16	static

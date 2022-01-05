@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "dac.h": "c",
+        "adc.h": "c",
+        "fuzzypid.h": "c",
+        "main.h": "c",
+        "stdbool.h": "c",
+        "flash.h": "c",
+        "usart.h": "c",
+        "publicfunc.h": "c",
+        "charginghandle.h": "c",
+        "mdrtuslave.h": "c",
+        "mdtype.h": "c",
+        "mdregpool.h": "c",
+        "mdconfig.h": "c",
+        "mdcrc16.h": "c",
+        "pid.h": "c",
+        "math.h": "c",
+        "stdlib.h": "c",
+        "string": "c",
+        "string.h": "c",
+        "time.h": "c"
+    }
+}
