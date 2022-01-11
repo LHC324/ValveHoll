@@ -48,8 +48,9 @@ void DWIN_SendWithCRC(uint8_t *_pBuf, uint8_t _ucLen)
 void DWIN_Send(uint8_t *_pBuf, uint8_t _ucLen)
 {
 //	HAL_UART_Transmit(&huart2,_pBuf, _ucLen, 0x1000);
-    HAL_UART_Transmit_DMA(&huart2, _pBuf, _ucLen);
-	while (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC) == RESET) { }
+//    HAL_UART_Transmit_DMA(&huart2, _pBuf, _ucLen);
+//	while (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC) == RESET) { }
+	HAL_UART_Transmit(&huart2, _pBuf, _ucLen, 0x1000);
 
 }
 

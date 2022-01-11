@@ -68,14 +68,14 @@ timer timhandle[] =
 	{0, 300,    0, true, User_Debug	         }	//调试接口（3ms）
 	#else
 	{0, 1,    0, true, Sampling_handle	     },	//电压电流采样（10ms）
-	{0, 50,   0, true, ChargerHandle		 },	//定时处理充电事件（500ms）
-	{0, 100,  0, true, Report_RealTime		 },	//实时时间上报(1s)
+	{0, 10,   0, true, ChargerHandle		 },	//定时处理充电事件（500ms）
+	{0, 90,   0, true, Report_RealTime		 },	//实时时间上报(1s)
 	{0, 100,  0, true, ChargeTimer			 },	//记录充电电量及充电时间(1s)
-	{0, 150,  0, true, Report_ChargeData	 },	//定时上报充电器实时数据 (1.5s)
+	{0, 100,  0, true, Report_ChargeData	 },	//定时上报充电器实时数据 (1.5s)
 	{0, 1500, 0, true, LTE_Report_ChargeData }, //物联网模块数据上报(15s)
 	{0, 1,    0, true, Flash_Operation       }, //Flash数据处理(10ms)
 	{0, 200,  0, true, Charging_Animation	 },	//记录充电动画是否开启(2s)
-	{0, 200,  0, true, Update_ChargingInfo	 },	//更新云平台下发给主机的充电信息(2s)
+//	{0, 200,  0, true, Update_ChargingInfo	 },	//更新云平台下发给主机的充电信息(2s)
 	#endif
 };
 
@@ -411,32 +411,32 @@ void Charging_Animation(void)
 /*
  * 根据网络数据升级本地充电信息
  */
-void Update_ChargingHandle(void)
-{
-	mdU8  data[2]   = { 0 };
-	/*更新本地充电器最大充电时间*/
-	if(mdhandler->registerPool->mdReadHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, &g_Charge.TargetTime) == mdTRUE)
-	{
-		/*充电时间存到存到flash，并且更新屏幕值*/	
-		g_Charge.IsSavedFlag = true;
-		data[0] = g_Charge.TargetTime >> 8;
-		data[1] = g_Charge.TargetTime; 
+//void Update_ChargingHandle(void)
+//{
+//	mdU8  data[2]   = { 0 };
+//	/*更新本地充电器最大充电时间*/
+//	if(mdhandler->registerPool->mdReadHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, &g_Charge.TargetTime) == mdTRUE)
+//	{
+//		/*充电时间存到存到flash，并且更新屏幕值*/	
+//		g_Charge.IsSavedFlag = true;
+//		data[0] = g_Charge.TargetTime >> 8;
+//		data[1] = g_Charge.TargetTime; 
 
-		DWIN_WRITE(CHARGE_TARGET_TIME_ADDR, data, sizeof(data));
-	}
-}
+//		DWIN_WRITE(CHARGE_TARGET_TIME_ADDR, data, sizeof(data));
+//	}
+//}
 
 /*
  * 更新云平台下发的充电信息
  */
-void Update_ChargingInfo(void)
-{	/*收到网络下发信息*/
-	if(mdhandler->updateFlag == true)
-	{
-		mdhandler->updateFlag = false;
-		Update_ChargingHandle();
-	}
-}
+//void Update_ChargingInfo(void)
+//{	/*收到网络下发信息*/
+//	if(mdhandler->updateFlag == true)
+//	{
+//		mdhandler->updateFlag = false;
+//		Update_ChargingHandle();
+//	}
+//}
 
 /*
  * 上报实时时间
@@ -473,6 +473,7 @@ uint8_t Report_DataHandle(uint8_t *buffer)
 {
     float 	data[5] = { 0 };
 	uint8_t index   = 0;
+	uint16_t temp_times = 0;
 	
 	g_PresentBatteryInfo.ChargingQuantity = Get_ChargingQuantity(); //获取充电电量
 	g_PresentBatteryInfo.ChargingTimes	  = Get_ChargingTimers();   //获取充电时长
@@ -484,9 +485,29 @@ uint8_t Report_DataHandle(uint8_t *buffer)
 	data[4] = g_PresentBatteryInfo.PresentWireLossVoltage;  	//获取当前输电线电压损耗
 	/*把数据记录到本地寄存器*/
 	mdhandler->registerPool->mdWriteHoldRegisters(mdhandler->registerPool, MDREGISTER_STARA_ADDR, sizeof(data)/sizeof(mdU16), (mdU16 *)data);
-	mdhandler->registerPool->mdWriteHoldRegister(mdhandler->registerPool, MDREGISTER_CHARGINGTIMES_ADDR, g_PresentBatteryInfo.ChargingTimes);	
-	/*目标充电时长*/
-	mdhandler->registerPool->mdWriteHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, g_Charge.TargetTime);
+	mdhandler->registerPool->mdWriteHoldRegister(mdhandler->registerPool, MDREGISTER_CHARGINGTIMES_ADDR, g_PresentBatteryInfo.ChargingTimes);
+	if (mdhandler->updateFlag)
+	{
+		mdhandler->updateFlag = false;
+		/*先把数据读取到临时变量*/
+		mdhandler->registerPool->mdReadHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, &temp_times);
+		/*首次上电导致数据错误*/
+		if((temp_times != 0U) && (temp_times != g_Charge.TargetTime))
+		{
+			g_Charge.TargetTime = temp_times;
+			/*充电时间存到存到flash，并且更新屏幕值*/	
+			g_Charge.IsSavedFlag = true;
+			/*注意不要使用g_Charge.TargetTime*/
+			EndianSwap((uint8_t*)&temp_times, 0, sizeof(temp_times));
+			DWIN_WRITE(CHARGE_TARGET_TIME_ADDR, (uint8_t *)&temp_times, sizeof(temp_times));
+		}
+	}
+	else 
+	{
+		/*目标充电时长*/
+		mdhandler->registerPool->mdWriteHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, g_Charge.TargetTime);
+	}
+
 	/*把ARM架构的小端存储模式转换为大端模式*/
     for(uint8_t i = 0; i < sizeof(data) / sizeof(float); i++) 
     {
@@ -514,12 +535,12 @@ void Report_ChargeData(void)
 	/*其他数据上报*/
     DWIN_WRITE(CHARGE_BATTERY_VOLTAGE_NOW_ADDR, buffer, index);
 	/*避免相同的状态，连续上报造成串口占用率过高*/
-	HAL_Delay(3);
+//	HAL_Delay(5);
 	/*上报充电器状态*/
 	DWIN_WRITE(MACHINE_STATE_ADDR, g_PresentBatteryInfo.ChargerStatus, \
 		        sizeof(g_PresentBatteryInfo.ChargerStatus));
 	/*延时一段时间，串口屏幕反应不过来*/
-	HAL_Delay(2);
+//	HAL_Delay(5);
 	/*上报充电状态*/
 	DWIN_WRITE(CHARGE_STATE_ADDR, g_PresentBatteryInfo.ChargingStatus, \
 			    sizeof(g_PresentBatteryInfo.ChargingStatus));
@@ -538,7 +559,7 @@ void Report_BackChargingData(void)
         EndianSwap(&reportbuff[i * 2], 0, sizeof(uint16_t));
     }
 	/*不上报第一个标志数据*/
-	DWIN_WRITE(TRICKLE_CHARGE_CURRENT_ADDR, &(reportbuff[2]), sizeof(g_Charge) - sizeof(uint16_t));
+	DWIN_WRITE(TRICKLE_CHARGE_CURRENT_ADDR, (uint8_t *)&(reportbuff[2]), sizeof(g_Charge) - sizeof(uint16_t));
 }
 
 
@@ -584,8 +605,14 @@ void Sampling_handle(void)
 			// g_PresentBatteryInfo.PresentVoltage -= g_PresentBatteryInfo.PresentWireLossVoltage;
 		}
 	#else
-		g_PresentBatteryInfo.PresentCurrent = sidefilter(&SideparmCurrent, Get_Current());
 		g_PresentBatteryInfo.PresentVoltage = sidefilter(&SideparmVoltage, Get_Voltage());
+		/*只有在充电状态下，才利用滤波检测电瓶真实电流*/
+		if(g_PresentBatteryInfo.Mstate == charging)
+		{
+			/*动态的校准由于外部线路或器件引起的压降*/
+			g_PresentBatteryInfo.PresentWireLossVoltage = g_PresentBatteryInfo.PresentChargingVoltage - g_PresentBatteryInfo.PresentVoltage;
+			g_PresentBatteryInfo.PresentCurrent = sidefilter(&SideparmCurrent, Get_Current());	
+		}
 	#endif
 }
 
@@ -647,6 +674,8 @@ void getMachineState(void)
 			Set_BaterrryInfo(Get_BaterrryInfo(Current_Voltage));
 			/*更新充电器后台充电参数*/
 			Report_BackChargingData();	
+			/*触发开始开始打开底板供电即计时*/
+			g_Timer.Timer8Count = T_2S;
 		}	
 		/*充电计时器开启*/
 		g_PresentBatteryInfo.ChargingTimingFlag = true;   
@@ -710,9 +739,34 @@ void getChargingState(void)
  */
 void ChargerHandle(void)
 {
-	/*获取一下充电器当前状态*/
-	getMachineState();
+	mdBit AcInput_Bit = false;
 	
+	/*读出交流输入线圈状态值*/
+	mdhandler->registerPool->mdReadCoil(mdhandler->registerPool, MDREGISTER_CLOSE_ACINPUT_ADDR, &AcInput_Bit);
+	
+	if (AcInput_Bit)
+	{
+		g_PresentBatteryInfo.CloseAcInputFlag = true;
+		/*关闭底板电源供电开关*/
+		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_RESET);
+		/*充电器状态置为待机*/
+		g_PresentBatteryInfo.Mstate = standby;
+		/*关闭充电计数器*/
+		g_PresentBatteryInfo.ChargingTimingFlag = false;
+	}
+	else
+	{
+		g_PresentBatteryInfo.CloseAcInputFlag = false;
+//		/*打开底板电源供电开关*/
+//		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_SET);	
+//		HAL_Delay(10);
+		
+		/*获取一下充电器当前状态*/
+		getMachineState();
+	}
+	
+//	/*获取一下充电器当前状态*/
+//	getMachineState();
 	/*根据当前充电器状态，做出调整*/
     switch(g_PresentBatteryInfo.Mstate)
     {
@@ -732,27 +786,50 @@ void ChargerHandle(void)
     }
 }
 
+/**
+ * Get x sign bit only for little-endian
+ * if x >= 0 then  1
+ * if x <  0 then -1
+ */
+#define MathUtils_SignBit(x) \
+	(((signed char*) &x)[sizeof(x) - 1] >> 7 | 1)
+
 /*
  * 获取电压调整补偿
  */
 void Get_VoltageMicroCompensate(const float UserCurrent)
 {
-	volatile float CurrentGap = UserCurrent - g_PresentBatteryInfo.PresentCurrent;
-
-	if(CurrentGap < 0)
-	{	/*调节过度*/
-		if(CurrentGap  < -0.15F)
-		{
-			CurrentGap = -0.05F; 
-		}
-		else
-			CurrentGap = 0;
+	volatile float Difference = UserCurrent - g_PresentBatteryInfo.PresentCurrent;
+	static float CurrentGap = 0;
+	float Coefficient = UserCurrent / CURRENT_RATIO;
+		
+//	if(Difference < 0)
+//	{	/*调节过度*/
+//		if(Difference  < -Coefficient) //0.15F
+//		{
+//			CurrentGap += (-Coefficient / 2.0F); //0.05F
+//		}
+//		else
+//			CurrentGap = 0;
+//	}
+//	else
+//	{
+//		/*补偿值由屏幕给定，将会决定快速达到指定电流的速度*/
+//		CurrentGap = 0.1F + (((float)g_Charge.Compensation) / 1000.0F);
+//		/*在电瓶电压基础上每次怎加0.1V+补偿电压*/
+//	}
+//	g_PresentBatteryInfo.PresentChargingVoltage += CurrentGap;
+	
+	if (fabs(Difference) && (fabs(Difference) > Coefficient))
+	{	
+		CurrentGap += (Coefficient / 2.0F);
+		/*获取符号位*/
+		CurrentGap *= MathUtils_SignBit(CurrentGap);
 	}
 	else
+	/*允许误差或者已经调节在点上*/
 	{
-		/*补偿值由屏幕给定，将会决定快速达到指定电流的速度*/
-		CurrentGap = 0.1F + (((float)g_Charge.Compensation) / 1000.0F);
-		/*在电瓶电压基础上每次怎加0.1V+补偿电压*/
+		CurrentGap = 0;
 	}
 	g_PresentBatteryInfo.PresentChargingVoltage += CurrentGap;
 	
@@ -851,13 +928,42 @@ void ChargingProcess()
  */
 void ChargerEvent(void)
 {	
-	/*电源开关和充电开关同时打开*/
-    HAL_GPIO_WritePin(GPIOA, POWER_ON_Pin | CHARGING_SWITCH_Pin, GPIO_PIN_SET);	
-	/*风扇开关打开*/
-    HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_SET);  
+//	mdBit AcInput_Bit = false;
+//	
+//	/*读出交流输入线圈状态值*/
+//	mdhandler->registerPool->mdReadCoil(mdhandler->registerPool, MDREGISTER_CLOSE_ACINPUT_ADDR, &AcInput_Bit);
 	
-	/*获取充电状态*/
-	getChargingState();	
+//	if (AcInput_Bit)
+//	{
+//		g_PresentBatteryInfo.CloseAcInputFlag = true;
+////		/*关闭底板电源供电开关*/
+////		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_RESET);
+//		/*认为充电结束*/
+//		g_PresentBatteryInfo.Cstate = chargingend;
+//	}
+//	else
+	if (!g_PresentBatteryInfo.CloseAcInputFlag)
+	{
+//		g_PresentBatteryInfo.CloseAcInputFlag = false;
+		/*打开底板电源供电开关*/
+		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_SET);	
+		/*不能立即打开充电开关*/
+		if (!g_Timer.Timer8Flag)
+		{
+			return;
+		}
+
+		/*电源开关和充电开关同时打开*/
+		HAL_GPIO_WritePin(GPIOA, POWER_ON_Pin | CHARGING_SWITCH_Pin, GPIO_PIN_SET);	
+		/*风扇开关打开*/
+		HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_SET); 
+		/*获取充电状态*/
+		getChargingState();	
+	}
+	
+
+//	/*获取充电状态*/
+//	getChargingState();	
 	/*断路检测(不是充电结束)*/
 	if(g_PresentBatteryInfo.Cstate != chargingend)
 	{
@@ -915,7 +1021,7 @@ void StandbyEvent(void)
 	OtherEvent(); 
 	/*零电压开路：电压低于5V,则认为是对电池插拔*/
 	if((g_PresentBatteryInfo.PresentVoltage < g_PresentBatteryInfo.User_TrickleTargetVlotage)
-	|| (g_PresentBatteryInfo.PresentVoltage < CHECK_VOLTAGE))	
+	|| (g_PresentBatteryInfo.PresentVoltage < CHECK_VOLTAGE) || (g_PresentBatteryInfo.CloseAcInputFlag))	
 	{
         /*首次接入电瓶后跟新当前电池充电参数，电瓶拔掉后视为当前电瓶本次充电周期结束*/
 		g_FirstFlag = true;
@@ -929,13 +1035,17 @@ void StandbyEvent(void)
 		/*清除充电结束标志*/
 		g_PresentBatteryInfo.ChargingEndFlag        = false; 		
 		/*风扇开关关闭*/
-		HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_RESET); 	
+		HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_RESET); 
+		/*关闭底板电源供电开关*/
+		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_RESET);
 	}
 	/*待机但是没有拔掉设备，让PresentChargingVoltage不复位*/
 	/*电压输出为当前PresentChargingVoltage*/
 	Set_Voltage(g_PresentBatteryInfo.PresentChargingVoltage);
 	/*充电结束进入待机模式时，关闭总电源开关和充电输出开关*/
 	HAL_GPIO_WritePin(GPIOA, POWER_ON_Pin | CHARGING_SWITCH_Pin, GPIO_PIN_RESET); 
+	/*清除定时标志*/
+	g_Timer.Timer8Flag = false;
 }
 
 /*
@@ -1243,7 +1353,7 @@ void Set_Month(uint8_t* dat, uint8_t length)
 void Set_Date(uint8_t* dat, uint8_t length)
 {
     /*日期默认设置比屏幕上多一天才对*/
-	SetDate.Date = dat[1] + 1U;
+	SetDate.Date = dat[1] ;//+ 1U
 }
 
 void Set_Hour(uint8_t* dat, uint8_t length)

@@ -42,3 +42,5 @@ valveholl-changer\tim.o: ../Core/Inc/main.h
 valveholl-changer\tim.o: ../Core/Inc/publicfunc.h
 valveholl-changer\tim.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\tim.o: ../Core/Inc/Flash.h
+valveholl-changer\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+valveholl-changer\tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -123,6 +123,7 @@
 #define DA_VOLTAGE_P2	 						17.301F	
 
 #define MDREGISTER_STARA_ADDR					0x0000
+#define MDREGISTER_CLOSE_ACINPUT_ADDR           0x0000
 #define MDREGISTER_FASTCHARGING_ADDR		    0x0002
 #define MDREGISTER_CHARGINGTIMES_ADDR			0x000A
 #define MDREGISTER_TAGATTIMES_ADDR				0x000B
@@ -135,7 +136,9 @@
 #define DA_OUTPUTMAX							3550.0F		//DAC输出最大值
 #define HARDWARE_DAVOLTAGE 						59.0F		//硬件输出最大电压
 #define MAX_BATTERY_CAPCITY						500U		//最大电瓶容量
+#define CURRENT_RATIO                           10.0F       //恒流阶段电流调整倍率
 #define PID_ITERATIONCOUNTS						30U			//PID迭代次数
+#define ADD_COUNTERS                            50U         //底板电源打开时，不能立即打开充电开关，电流太大
 
 
 typedef enum
@@ -220,6 +223,7 @@ typedef struct
 	bool	 ChargingTimingFlag;	//充电计时标志
 	bool	 ChargingEndFlag;		//充电结束标志
 	bool 	 QuickChargingFlag;		//快速充电标志
+	bool     CloseAcInputFlag;      //关闭交流供电标志
 	bool	 ZeroCurrentFlag;		//
 //	bool 	 ZeroVoltageFlag;
 //	bool     BreaksFlag;			//断路标志

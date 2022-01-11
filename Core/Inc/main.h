@@ -38,6 +38,8 @@ extern "C" {
 #include "ChargingHandle.h"
 //#include "myflash.h"
 #include "Flash.h"
+#include "stdio.h"
+#include "string.h"
 
 /* USER CODE END Includes */
 
@@ -83,6 +85,8 @@ void Error_Handler(void);
 #define CHARGING_SWITCH_GPIO_Port GPIOA
 #define FANS_POWER_Pin GPIO_PIN_0
 #define FANS_POWER_GPIO_Port GPIOD
+#define CHIP_POWER_Pin GPIO_PIN_1
+#define CHIP_POWER_GPIO_Port GPIOD
 #define DISCHARGING_SWITCH_Pin GPIO_PIN_4
 #define DISCHARGING_SWITCH_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */

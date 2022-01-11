@@ -42,13 +42,13 @@ valveholl-changer\charginghandle.o: ../Core/Inc/main.h
 valveholl-changer\charginghandle.o: ../Core/Inc/publicfunc.h
 valveholl-changer\charginghandle.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\charginghandle.o: ../Core/Inc/Flash.h
+valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 valveholl-changer\charginghandle.o: ../Core/Inc/tim.h
 valveholl-changer\charginghandle.o: ../Core/Inc/rtc.h
 valveholl-changer\charginghandle.o: ../Core/Inc/usart.h
 valveholl-changer\charginghandle.o: ../Core/Inc/dac.h
 valveholl-changer\charginghandle.o: ../Core/Inc/adc.h
-valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 valveholl-changer\charginghandle.o: ../Core/Inc/ModbusMaster.h
 valveholl-changer\charginghandle.o: ..\FreeModBus\Inc\mdrtuslave.h

@@ -1,7 +1,6 @@
 --cpu Cortex-M3
 "valveholl-changer\dwin.o"
 "valveholl-changer\modbusmaster.o"
-"valveholl-changer\modbusslave.o"
 "valveholl-changer\publicfunc.o"
 "valveholl-changer\charginghandle.o"
 "valveholl-changer\flash.o"

@@ -348,42 +348,56 @@ void MODS_04H(void)
 {
 }
 
+/*设置线圈标志*/
+static __inline void Set_CoilFlag(uint8_t *pMod, bool *currnet_flag)
+{
+	if (*pMod == 0xFF)
+	{
+		*currnet_flag = true;
+	}
+	else
+	{
+		*currnet_flag = false;
+	}
+}
+
 /*写单个线圈指令解析*/
 void  Write_SingleCoil_Explain(uint8_t addr)
 {
+	/*网络丢包导致的数据错误*/
+	if(!checkCrc16(g_tModS.RxBuf, g_tModS.RxCount))
+	{
+		return; 
+	}
+	
 	switch(addr)
 	{
 		case QUICKCHARGING_ADDR: 
 		{
-//			/*网络丢包导致的数据错误*/
-//			if(!checkCrc16(g_tModS.RxBuf, g_tModS.RxCount))
+//			if(g_tModS.RxBuf[4] == 0xFF) //第五字节可以直接丢弃0xFF00/0x0000
 //			{
-//				return; 
+//				g_PresentBatteryInfo.QuickChargingFlag = true;
+////				/*只有在恒流模式下才能开启快充功能*/
+////				if(g_PresentBatteryInfo.Cstate == constant_current)
+////				{
+////					temp_current *=  FAST_CHARGE_CURRENT_COEFFICENT;
+////				}
 //			}
-			
-			if(g_tModS.RxBuf[4] == 0xFF) //第五字节可以直接丢弃0xFF00/0x0000
-			{
-				g_PresentBatteryInfo.QuickChargingFlag = true;
-//				/*只有在恒流模式下才能开启快充功能*/
-//				if(g_PresentBatteryInfo.Cstate == constant_current)
-//				{
-//					temp_current *=  FAST_CHARGE_CURRENT_COEFFICENT;
-//				}
-			}
-			else //0x0000
-			{
-				g_PresentBatteryInfo.QuickChargingFlag  = false;
-				/*只有在恒流模式下关闭快充才有效*/
-//				if(g_PresentBatteryInfo.Cstate == constant_current)
-//				{
-//					temp_current /=  FAST_CHARGE_CURRENT_COEFFICENT;
-//				}
-			}
+//			else //0x0000
+//			{
+//				g_PresentBatteryInfo.QuickChargingFlag  = false;
+//				/*只有在恒流模式下关闭快充才有效*/
+////				if(g_PresentBatteryInfo.Cstate == constant_current)
+////				{
+////					temp_current /=  FAST_CHARGE_CURRENT_COEFFICENT;
+////				}
+//			}
+			Set_CoilFlag(&g_tModS.RxBuf[4], &g_PresentBatteryInfo.QuickChargingFlag);
 		}break;
 		
 		case CLOSECHARGER_ADDR:
 		{
-		
+			Set_CoilFlag(&g_tModS.RxBuf[4], &g_PresentBatteryInfo.CloseAcInputFlag);
 		}break;
 		default : break;
 	}

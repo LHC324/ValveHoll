@@ -42,3 +42,5 @@ valveholl-changer\gpio.o: ../Core/Inc/main.h
 valveholl-changer\gpio.o: ../Core/Inc/publicfunc.h
 valveholl-changer\gpio.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\gpio.o: ../Core/Inc/Flash.h
+valveholl-changer\gpio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+valveholl-changer\gpio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

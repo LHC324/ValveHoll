@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -21,7 +21,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+TIMER8 g_Timer = {0};
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim1;
@@ -108,9 +108,15 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+#define SET_TIMER_FLAG(Timer) \
+do \
+{ \
+	if (!(--Timer.Timer8Count)) \
+		Timer.Timer8Flag = true; \
+}while(0)
 
 /*
- * 多任务交替执行，定时时间 = 预设�?????*单次中断时长(10ms)
+ * Time slice polling mechanism(10ms)
  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -130,6 +136,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				}
 			}
 		}
+		SET_TIMER_FLAG(g_Timer);
     }
 }
 

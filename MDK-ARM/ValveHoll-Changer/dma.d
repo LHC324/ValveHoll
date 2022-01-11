@@ -42,3 +42,5 @@ valveholl-changer\dma.o: ../Core/Inc/main.h
 valveholl-changer\dma.o: ../Core/Inc/publicfunc.h
 valveholl-changer\dma.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\dma.o: ../Core/Inc/Flash.h
+valveholl-changer\dma.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+valveholl-changer\dma.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

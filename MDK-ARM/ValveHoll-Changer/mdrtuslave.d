@@ -50,3 +50,4 @@ valveholl-changer\mdrtuslave.o: ../Core/Inc/main.h
 valveholl-changer\mdrtuslave.o: ../Core/Inc/publicfunc.h
 valveholl-changer\mdrtuslave.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\mdrtuslave.o: ../Core/Inc/Flash.h
+valveholl-changer\mdrtuslave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

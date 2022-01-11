@@ -41,6 +41,8 @@ valveholl-changer\main.o: ../Core/Inc/main.h
 valveholl-changer\main.o: ../Core/Inc/publicfunc.h
 valveholl-changer\main.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\main.o: ../Core/Inc/Flash.h
+valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 valveholl-changer\main.o: ../Core/Inc/adc.h
 valveholl-changer\main.o: ../Core/Inc/dac.h
 valveholl-changer\main.o: ../Core/Inc/dma.h
@@ -49,7 +51,6 @@ valveholl-changer\main.o: ../Core/Inc/rtc.h
 valveholl-changer\main.o: ../Core/Inc/tim.h
 valveholl-changer\main.o: ../Core/Inc/usart.h
 valveholl-changer\main.o: ../Core/Inc/gpio.h
-valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 valveholl-changer\main.o: ../Core/Inc/ModbusSlave.h
 valveholl-changer\main.o: ..\FreeModBus\Inc\mdrtuslave.h
 valveholl-changer\main.o: ..\FreeModBus\Inc\mdtype.h

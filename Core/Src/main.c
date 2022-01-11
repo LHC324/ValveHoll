@@ -95,34 +95,33 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init(); 
-  MX_TIM1_Init();
+  MX_GPIO_Init();
   MX_DMA_Init();
   MX_DAC_Init();
+  MX_TIM1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_RTC_Init();
   MX_ADC1_Init();
+//  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
-  /*ADCУ׼*/
+  /*ADC calibration*/
 //  HAL_ADCEx_Calibration_Start(&hadc1);    
 	HAL_Delay(3000);
-	/*��ʼ�����Ź�*/
+	/*Initialize watchdog*/
 	MX_IWDG_Init();
-	/*��ʼ��flash*/
+	/*Initialize flash*/
 	FLASH_Init();
-	/*��DMA��ADC�ɼ�ͨ��*/
+	/*Turn on DMA transmission of ADC*/
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t *)AdcDMA_buffer, DMA_SIZE);
-	/*��DAC��ѹ���*/
+	/*Turn on the DAC*/
 	HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
-	/*����ʱ����Ҫ���ȴ���Ƭ���͵�����Ļ��Դ����*/
-	//	HAL_Delay(2000);
-	/*�򿪶�ʱ��1*/
+	/*Start timer 1*/
 	HAL_TIM_Base_Start_IT(&htim1);
-	/*��ʼ��������ѯ���¼�*/
+	/*Initialize communication parameters*/
 	CommunicationInit();
 	ModbusInit();
-	/* USER CODE END 2 */
+  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -133,9 +132,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 		Timer_Task();
 		Idle_task();
-       /*ModBus接收数据处理*/
+       /*ModBusdata processing*/
         mdRTU_Handler();
-		
+		/*feed a dog*/
         HAL_IWDG_Refresh(&hiwdg);
     }
 
@@ -210,26 +209,26 @@ void Timer_Task(void)
  */
 void Idle_task(void)
 {
-	if(rx1ReciveOver_Flag == true)  //������ɱ�־
+	if(rx1ReciveOver_Flag == true)  //������ɱ��?
 	{
 		// MODS_ReciveNew(receive1_buff, rx1Conut);
 		// MODS_Poll();
 
-    mdhandler->portRTUPushString(mdhandler, receive1_buff, rx1Conut);
+        mdhandler->portRTUPushString(mdhandler, receive1_buff, rx1Conut);
 
-		rx1Conut = 0; //�������
-		rx1ReciveOver_Flag = false;	//������ս�����־ʹ
+		rx1Conut = 0; //�������?
+		rx1ReciveOver_Flag = false;	//������ս�����־�?
 		memset(receive1_buff, 0, rx1Conut);
 		HAL_UART_Receive_DMA(&huart1, receive1_buff, BUFFER_SIZE); //���´�DMA����
 	}
 	
-	if(rx2ReciveOver_Flag == true)  //������ɱ�־
+	if(rx2ReciveOver_Flag == true)  //������ɱ��?
 	{
 //		HAL_UART_Transmit_DMA(&huart2, receive2_buff, rx2Conut );
 		DWIN_ReciveNew(receive2_buff, rx2Conut);
 		DWIN_Poll();
 		
-		rx2ReciveOver_Flag = false;	//������ս�����־ʹ
+		rx2ReciveOver_Flag = false;	//������ս�����־�?
 		memset(receive2_buff, 0, rx2Conut);
 		rx2Conut = 0; //�������?
 		HAL_UART_Receive_DMA(&huart2, receive2_buff, BUFFER_SIZE); //���´�DMA����

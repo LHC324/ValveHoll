@@ -42,6 +42,6 @@ valveholl-changer\modbusslave.o: ../Core/Inc/main.h
 valveholl-changer\modbusslave.o: ../Core/Inc/publicfunc.h
 valveholl-changer\modbusslave.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\modbusslave.o: ../Core/Inc/Flash.h
-valveholl-changer\modbusslave.o: ../Core/Inc/usart.h
 valveholl-changer\modbusslave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 valveholl-changer\modbusslave.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+valveholl-changer\modbusslave.o: ../Core/Inc/usart.h
