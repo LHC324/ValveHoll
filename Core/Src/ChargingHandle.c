@@ -64,11 +64,12 @@ SideParm SideparmVoltage = { true , { 0.0 }, &SideparmVoltage.SideBuff[0], 0.0};
 /*软定时器任务事件组*/
 timer timhandle[] =
 {
-	#if(DEBUGGING == 1)
-	{0, 300,    0, true, User_Debug	         }	//调试接口（3ms）
-	#else
 	{0, 1,    0, true, Sampling_handle	     },	//电压电流采样（10ms）
+#if(DEBUGGING == 1)
+	{0, 300,    0, true, User_Debug	         },	//调试接口（3s）
+#else
 	{0, 10,   0, true, ChargerHandle		 },	//定时处理充电事件（500ms）
+#endif
 	{0, 90,   0, true, Report_RealTime		 },	//实时时间上报(1s)
 	{0, 100,  0, true, ChargeTimer			 },	//记录充电电量及充电时间(1s)
 	{0, 100,  0, true, Report_ChargeData	 },	//定时上报充电器实时数据 (1.5s)
@@ -76,7 +77,7 @@ timer timhandle[] =
 	{0, 1,    0, true, Flash_Operation       }, //Flash数据处理(10ms)
 	{0, 200,  0, true, Charging_Animation	 },	//记录充电动画是否开启(2s)
 //	{0, 200,  0, true, Update_ChargingInfo	 },	//更新云平台下发给主机的充电信息(2s)
-	#endif
+
 };
 
 /*获得当前软件定时器个数*/
@@ -115,23 +116,67 @@ DwinMap RecvHandle[] =
 #if(DEBUGGING == 1)
 void User_Debug(void)
 {
-	uint8_t buffer[2] ={ 0 } ;
-	buffer[0] = GetAdcToDmaValue(1) >> 8;
-	buffer[1] = GetAdcToDmaValue(1);
+#if (USING_PART1 == 1U)
+	static float temp_voltage = 48.0F;
+#else
+   static float temp_voltage = 2.0F;
+#endif
+	// uint16_t temp_dac = 0;
+	// static uint32_t counter = 0;
+
+//	uint8_t buffer[2] ={ 0 } ;
+//	buffer[0] = GetAdcToDmaValue(1) >> 8;
+//	buffer[1] = GetAdcToDmaValue(1);
 	
 	// g_PresentBatteryInfo.PresentCurrent = Get_Current();  //获取电流
 	// g_PresentBatteryInfo.PresentVoltage = Get_Voltage();  //获取电压
-	
+
+	/*打开底板电源供电开关*/
+	HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(POWER_ON_GPIO_Port,   POWER_ON_Pin,   GPIO_PIN_SET);   //电源开关打开
 	HAL_GPIO_WritePin(GPIOA, POWER_ON_Pin|CHARGING_SWITCH_Pin, GPIO_PIN_SET);//充电开关打开
 	HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_SET);   //风扇开关打开
-	// Set_Voltage(56.0F);
-	HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, 3550);
 	
-	HAL_UART_Transmit_DMA(&huart2, buffer, 2);
-	while (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC) == RESET) { }
+#if (USING_PART1 == 1U)
+
+	if (temp_voltage == 57.0F)
+	{
+		temp_voltage = 48.0F;
+	}
+	Set_Voltage(temp_voltage);	
+	temp_voltage += 1.0F;
+#else
+if (temp_voltage == 57.0F)
+	{
+		temp_voltage = 2.0F;
+	}
+	Set_Voltage(temp_voltage);	
+	temp_voltage += 5.0F;
+#endif
+
+
+	// switch (counter)
+	// {
+	// 	case 0 : temp_dac = 0U; break;
+	// 	case 1 : temp_dac = 720U; break;
+	// 	case 2 : temp_dac = 1440U; break;
+	// 	case 3 : temp_dac = 2160U; break;
+	// 	case 4 : temp_dac = 2880U; break;
+	// 	case 5 : temp_dac = 3600U; break;
+	// }
+
+	// if (++counter >= 6U)
+	// {
+	// 	counter = 0U;
+	// }
+
+
+	// HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, temp_dac);
 	
-	return ;
+//	HAL_UART_Transmit_DMA(&huart2, buffer, 2);
+//	while (__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC) == RESET) { }
+//	
+//	return ;
 }
 #endif
 
@@ -155,6 +200,7 @@ static const uint16_t ADC_Value_Interval[][2] =
 	{2781U, 3600U}	/*(48V-60v]*/
 };
 
+#if (!USEING_DAC_TABLE)
 /*分段存储DAC数字量比列系数*/
 static const float DAC_Param_Interval[][2] =
 {
@@ -174,6 +220,43 @@ static const float DAC_Voltage_Interval[][2] =
 	{36.0F, 48.0F},	/*(36V-48v]*/
 	{48.0F, 60.0F}	/*(48V-60v]*/
 };
+#else
+/*分段存储DAC对应的电压值*/
+const float DAC_Voltage_Interval[PART_SIZE][2] =
+{
+	{2.0F,  5.0F},	/*(2V-5V]*/
+	{5.0F, 10.0F},	/*(5V-10v]*/
+	{10.0F, 15.0F},	/*(10V-15v]*/
+	{15.0F, 20.0F},	/*(15V-20v]*/
+	{20.0F, 25.0F},	/*(20V-25v]*/
+	{25.0F, 30.0F},	/*(25V-30v]*/
+	{30.0F, 35.0F},	/*(30V-35v]*/
+	{35.0F, 40.0F},	/*(35V-40v]*/
+	{40.0F, 45.0F},	/*(40V-45v]*/
+	{45.0F, 50.0F},	/*(45V-50v]*/
+	{50.0F, 55.0F},	/*(50V-55v]*/
+	{55.0F, 57.0F},	/*(55V-57v]*/
+};
+
+/*分段存储DAC数字量比列系数*/
+float DAC_Param_Interval[PART_SIZE][2] = 
+{
+	{64.000000F, 10.000000F},	/*(2V-5V]*/
+	{65.199997F, 6.0000000F},	/*(5V-10v]*/
+	{62.400002F, 36.000000F},	/*(10V-15v]*/
+	{64.400002F, 8.0000000F},	/*(15V-20v]*/
+	{64.400002F, 10.000000F},	/*(20V-25v]*/
+	{62.000000F, 72.000000F},	/*(25V-30v]*/
+	{64.000000F, 22.000000F},	/*(30V-35v]*/
+	{63.599998F, 38.000000F},	/*(35V-40v]*/
+	{64.800003F, -8.000000F},	/*(40V-45v]*/
+	{64.800003F, -6.000244F},	/*(45V-50v]*/
+	{65.199997F, -19.999756F},	/*(50V-55v]*/
+	{64.000000F, 48.000000F},	/*(55V-57v]*/	
+};
+#endif
+
+
 
 /*每个12V电池由6个单元组成*/ 
 static const float Voltage_Interval[][2] = 
@@ -268,7 +351,7 @@ void Set_Voltage(float voltage)
 	uint32_t dac_value   = 0;
 
 	/*限制DA输入最大值,使电压值不超过60V*/
-	if(voltage <= DA_OUTPUTMAX)	
+	if(voltage <= HARDWARE_DAVOLTAGE)	
 	{	/*次数避免数值相同情况下频繁向DA传送数值*/
 		 if(last_voltage != voltage)
 		 {
@@ -278,8 +361,13 @@ void Set_Voltage(float voltage)
 				dac_voltage_p1 = DAC_Param_Interval[Get_DACVoltageInterval(voltage)][0];
 				dac_voltage_p2 = DAC_Param_Interval[Get_DACVoltageInterval(voltage)][1];
 				dac_value 	   = (uint32_t)(dac_voltage_p1 * voltage + dac_voltage_p2);
+				/*限制DAC输入值*/
+				// if (dac_value > DA_OUTPUTMAX)
+				// {
+				// 	dac_value = DA_OUTPUTMAX;
+				// }
 			}
-			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, dac_value);
+			HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, (dac_value & 0x0FFF));
 		 } 
 	}
 }
@@ -365,8 +453,18 @@ void Set_BaterrryInfo(uint16_t start_section)
 static float Reset_ChargingVoltage(void)
 {
 	float Current_Voltage = Get_Voltage();
+	float Compensation = ((float)g_Charge.Compensation) / 1000.0F;
+
+	/*最大补偿值500mv, 最小补偿值100mv*/
+	Compensation > MAX_COMPENSATION ? (Compensation = MAX_COMPENSATION) : 
+	(Compensation < MIN_COMPENSATION ? (Compensation = MIN_COMPENSATION) : 0);
 	/*把当前检测到电瓶电压+0.5V作为起充电压*/
+#if (!USEING_COMPENSATION)
 	g_PresentBatteryInfo.PresentChargingVoltage = Current_Voltage + 0.5F;
+#else
+	/*起充电压由屏幕给定*/
+	g_PresentBatteryInfo.PresentChargingVoltage = Current_Voltage + ((float)g_Charge.Compensation) / 1000.0F;
+#endif
 
 	return Current_Voltage;
 }
@@ -568,12 +666,15 @@ void Report_BackChargingData(void)
  */
 void LTE_Report_ChargeData(void)
 {
+#if (!DEBUGGING)
     uint8_t buffer[32] = { 0 };
     uint8_t index      = 0;
 
 	index = Report_DataHandle(buffer);
+
 	/*46指令远程上报数据*/
 	MOD_46H(0x02, 0x00, index / 2U, index, buffer); 
+#endif
 }
 
 /*
@@ -623,6 +724,9 @@ void Check_ChargingDisconnection()
 {
 	/*开路次数*/
 	static uint8_t currentopen_counts = 0;
+	/*错误次数*/
+	static uint8_t error_counts = 0;
+
 	/*检测电流值低于充电截止电流*/
     if(g_PresentBatteryInfo.PresentCurrent < CHARGING_ENDCURRENT)	
     {
@@ -635,13 +739,19 @@ void Check_ChargingDisconnection()
         }
     }
 	/*充电故障：充电电压<当前电瓶两端电压或者充电过程中硬件异常导致的充电电压过高,报故障*/
-	if((g_PresentBatteryInfo.PresentChargingVoltage < (g_PresentBatteryInfo.PresentVoltage - 1.0F))
-	|| (g_PresentBatteryInfo.PresentVoltage > (g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage + 2.0F)))
+	if((g_PresentBatteryInfo.PresentChargingVoltage < (g_PresentBatteryInfo.PresentVoltage - MIN_OFFSET_VOLTAGE))
+	|| (g_PresentBatteryInfo.PresentChargingVoltage > (g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage + MAX_OFFSET_VOLTAGE))	
+	|| (g_PresentBatteryInfo.PresentVoltage > (g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage + MAX_OFFSET_VOLTAGE)))
 	{
 		/*复位充电电压*/
 		Reset_ChargingVoltage();
-		/*故障提醒*/
-		g_PresentBatteryInfo.Cstate  = error;
+		if (++error_counts >= MAX_DEFAULT_COUNTS) 
+		{
+			error_counts = 0U;
+			/*故障提醒*/
+			g_PresentBatteryInfo.ChargingFaultFlag = true;
+			g_PresentBatteryInfo.Cstate  = error;
+		}
 	}
 }
 
@@ -655,10 +765,11 @@ void getMachineState(void)
 {
     float Current_Voltage = 0;
 
-	/*完全断路或者充电结束*/
+	/*完全断路或者充电结束、充电故障*/
     if((g_PresentBatteryInfo.PresentVoltage   < CHECK_VOLTAGE)
 	|| (g_PresentBatteryInfo.ChargingEndFlag  == true)
-	|| (g_PresentBatteryInfo.ZeroCurrentFlag  == true))
+	|| (g_PresentBatteryInfo.ZeroCurrentFlag  == true)
+	|| (g_PresentBatteryInfo.ChargingFaultFlag == true))
 	{
 		g_PresentBatteryInfo.ChargingTimingFlag = false;   
 		g_PresentBatteryInfo.Mstate = standby;
@@ -711,10 +822,10 @@ void getChargingState(void)
     {	/*条件g_PresentBatteryInfo.PresentVoltage > g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage满足*/
 		g_PresentBatteryInfo.Cstate = constant_voltage;
 		/*500MS一次，总共计数30min，若电流变化<0.05，则认为电池充满*/
-		if(StartTimes++ > 3600U)//60
+		if(++StartTimes >= CHARGING_END_TIMES)//60
 		{
 			StartTimes = 0;
-			if((fabs(LastCurrent - g_PresentBatteryInfo.PresentCurrent) < 0.05F)
+			if((fabs(LastCurrent - g_PresentBatteryInfo.PresentCurrent) < MIN_OFFSET_CURRENT)
 			|| (g_PresentBatteryInfo.PresentCurrent < g_PresentBatteryInfo.User_TrickleCurrent))
 			{/*正常充电结束的标志是：当前充电电流小于涓流电流，或者充电时长超过设定时间*/
 				/*清除前30分钟电流值*/
@@ -779,7 +890,13 @@ void ChargerHandle(void)
         case standby:
         {  
             StandbyEvent();
+			/*充电器状态待机*/
 			g_PresentBatteryInfo.ChargerStatus[1] = 1 << 1; 
+			if (g_PresentBatteryInfo.ChargingFaultFlag == true)
+			{
+				/*充电状态故障*/
+				g_PresentBatteryInfo.ChargingStatus[1] = 1 << 0;
+			}
         }break;
 		
 		default : break;
@@ -800,31 +917,44 @@ void ChargerHandle(void)
 void Get_VoltageMicroCompensate(const float UserCurrent)
 {
 	volatile float Difference = UserCurrent - g_PresentBatteryInfo.PresentCurrent;
-	static float CurrentGap = 0;
+	volatile float Absolute = fabs(Difference);
+	float CurrentGap = 0;
 	float Coefficient = UserCurrent / CURRENT_RATIO;
+	// float Compensation = ((float)g_Charge.Compensation) / 1000.0F;
 		
-//	if(Difference < 0)
-//	{	/*调节过度*/
-//		if(Difference  < -Coefficient) //0.15F
-//		{
-//			CurrentGap += (-Coefficient / 2.0F); //0.05F
-//		}
-//		else
-//			CurrentGap = 0;
-//	}
-//	else
-//	{
-//		/*补偿值由屏幕给定，将会决定快速达到指定电流的速度*/
-//		CurrentGap = 0.1F + (((float)g_Charge.Compensation) / 1000.0F);
-//		/*在电瓶电压基础上每次怎加0.1V+补偿电压*/
-//	}
-//	g_PresentBatteryInfo.PresentChargingVoltage += CurrentGap;
+	// if(Difference < 0)
+	// {	/*调节过度*/
+	// 	if(Difference  < -Coefficient) //0.15F
+	// 	{
+	// 		CurrentGap += (-Coefficient / 2.0F); //0.05F
+	// 	}
+	// 	else
+	// 		CurrentGap = 0;
+	// }
+	// else
+	// {	/*最大补偿值500mv*/
+	// 	if (Compensation > MAX_COMPENSATION)
+	// 	{
+	// 		Compensation = MAX_COMPENSATION;
+	// 	}
+	// 	/*补偿值由屏幕给定，将会决定快速达到指定电流的速度*/
+	// 	CurrentGap = 0.1F + Compensation;
+	// 	/*在电瓶电压基础上每次怎加0.1V+补偿电压*/
+	// }
+	// g_PresentBatteryInfo.PresentChargingVoltage += CurrentGap;
 	
-	if (fabs(Difference) && (fabs(Difference) > Coefficient))
+	
+//	g_PresentBatteryInfo.PresentChargingVoltage = 12.5F;
+	
+	/*目标电流不可能是负数*/
+	if (MathUtils_SignBit(UserCurrent) == -1)
+	{
+		return ;
+	}
+	if (Absolute && (Absolute > Coefficient))
 	{	
-		CurrentGap += (Coefficient / 2.0F);
 		/*获取符号位*/
-		CurrentGap *= MathUtils_SignBit(CurrentGap);
+		CurrentGap = MathUtils_SignBit(Difference) * MIN_OFFSET_CURRENT;
 	}
 	else
 	/*允许误差或者已经调节在点上*/
@@ -902,10 +1032,10 @@ void ChargingProcess()
             g_PresentBatteryInfo.ChargingStatus[1] = 1 << 4;
         }break;
 		/*充电错误*/
-        case error:
-        {
-            g_PresentBatteryInfo.ChargingStatus[1] = 1 << 0;
-        }break;
+        // case error:
+        // {
+        //     g_PresentBatteryInfo.ChargingStatus[1] = 1 << 0;
+        // }break;
 		
 		default : break;
     }
@@ -1010,6 +1140,11 @@ void ChargerEvent(void)
 			g_PresentBatteryInfo.ZeroCurrentFlag = false;
 		}
 	}
+	/*充电故障导致的待机，设置输出电压为0v*/
+	if (g_PresentBatteryInfo.ChargingFaultFlag == true)
+	{
+		g_PresentBatteryInfo.PresentChargingVoltage = 0U;
+	}
  }
 
 /*
@@ -1025,6 +1160,8 @@ void StandbyEvent(void)
 	{
         /*首次接入电瓶后跟新当前电池充电参数，电瓶拔掉后视为当前电瓶本次充电周期结束*/
 		g_FirstFlag = true;
+		/*复位充电故障标志*/
+		g_PresentBatteryInfo.ChargingFaultFlag = false;
 		/*复位充电电流*/
 		g_PresentBatteryInfo.PresentCurrent 		= 0U;   
 		/*复位充电输出电压*/
@@ -1124,7 +1261,7 @@ void FlashReadInit(void)
 		g_Charge.ConstantVoltageTargetCurrent = SINGLEUNIT_MINCURRENT * 5U  * 10U;
         g_Charge.BatteryCapacity              = 5U;
         g_Charge.TargetTime                   = 480U;
-        g_Charge.Compensation        		  = 100U;
+        g_Charge.Compensation        		  = 500U;
 		g_Charge.UnitElements 				  = 0U;
 		g_Charge.SecondBootVoltage 			  = 510U;
     }

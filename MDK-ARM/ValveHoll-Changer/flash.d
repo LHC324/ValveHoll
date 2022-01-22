@@ -44,3 +44,4 @@ valveholl-changer\flash.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\flash.o: ../Core/Inc/Flash.h
 valveholl-changer\flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 valveholl-changer\flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+valveholl-changer\flash.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

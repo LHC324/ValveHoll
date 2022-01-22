@@ -21,6 +21,12 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include "shell_port.h"
+
+#if (DEBUGGING == 1U)
+char rx_data = '\0';
+#endif
+
 uint16_t rx1Conut = 0;
 bool rx1ReciveOver_Flag = false;
 uint8_t receive1_buff[BUFFER_SIZE] = {0};
@@ -63,10 +69,12 @@ void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
+  #if (!DEBUGGING)
 //  __HAL_UART_ENABLE_IT(&huart1,UART_IT_RXNE); //接收中断
     __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE); //空闲中断
-    //DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长�?
+    //DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长�?
     HAL_UART_Receive_DMA(&huart1, receive1_buff, BUFFER_SIZE);
+#endif
   /* USER CODE END USART1_Init 2 */
 
 }
@@ -97,7 +105,7 @@ void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 //  __HAL_UART_ENABLE_IT(&huart2,UART_IT_RXNE); //接收中断
     __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE); //空闲中断
-    //DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长�?
+    //DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长�?
     HAL_UART_Receive_DMA(&huart2, receive2_buff, BUFFER_SIZE);
   /* USER CODE END USART2_Init 2 */
 
@@ -291,29 +299,29 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-
-/*void my_Enable(void)
+#if (DEBUGGING == 1U)
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	HAL_NVIC_EnableIRQ(USART2_IRQn);
-	HAL_NVIC_SetPriority(USART2_IRQn,3,0);
+    /*When debugging is enabled, open a shell to receive*/
+    if(huart ->Instance == USART1)
+    {  
+			HAL_UART_Receive_IT(&huart1, (uint8_t *)&rx_data, 1);
+      shellHandler(&shell, rx_data);
+    }
+}
 
-	__HAL_UART_ENABLE_IT(&huart2,UART_IT_RXNE); //接收中断
-	__HAL_UART_ENABLE_IT(&huart2,UART_IT_IDLE); //空闲中断
-}*/
+void Usart1_Printf(const char *format,...)
+{
+	uint16_t len;
+	va_list args;	
+  
+	va_start(args, format);
+	len = vsnprintf((char*)receive1_buff, sizeof(receive1_buff)+1, format, args);
+	va_end(args);
 
-//void USART1_IdleCallback(uint8_t* dat, uint16_t Length)
-//{
-//    MODS_ReciveNew(dat, Length);
-//    MODS_Poll();
-//}
-
-//void USART2_IdleCallback(uint8_t* dat, uint16_t Length)
-//{
-//    //HAL_UART_Transmit(&huart1, dat, Length, 0xffff);
-//    DWIN_ReciveNew(dat, Length);
-//    DWIN_Poll();
-//}
-
+  HAL_UART_Transmit(&huart1 , (uint8_t *)&receive1_buff, len, 0xFFFF);
+}
+#endif
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

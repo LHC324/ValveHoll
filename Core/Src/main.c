@@ -33,6 +33,10 @@
 #include <string.h>
 #include "ModbusSlave.h"
 #include "mdrtuslave.h"
+#if (DEBUGGING == 1U)
+#include "shell_port.h"
+extern char rx_data;
+#endif
 
 /* USER CODE END Includes */
 
@@ -60,7 +64,7 @@ timer   gTim[TIMER_EVENTS];
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void Timer_Task(void);
-void Idle_task(void);  //��ѭ��ִ���·�
+void Idle_task(void);  
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -109,7 +113,9 @@ int main(void)
 //  HAL_ADCEx_Calibration_Start(&hadc1);    
 	HAL_Delay(3000);
 	/*Initialize watchdog*/
+#if (!DEBUGGING)
 	MX_IWDG_Init();
+#endif
 	/*Initialize flash*/
 	FLASH_Init();
 	/*Turn on DMA transmission of ADC*/
@@ -121,6 +127,11 @@ int main(void)
 	/*Initialize communication parameters*/
 	CommunicationInit();
 	ModbusInit();
+  /*Initialize the shell interface*/
+#if (DEBUGGING == 1U)
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)&rx_data, 1);
+  User_Shell_Init();
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -130,12 +141,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		Timer_Task();
-		Idle_task();
-       /*ModBusdata processing*/
-        mdRTU_Handler();
-		/*feed a dog*/
-        HAL_IWDG_Refresh(&hiwdg);
+		  Timer_Task();
+		  Idle_task();
+      /*ModBusdata processing*/
+      mdRTU_Handler();
+#if (!DEBUGGING)
+		  /*feed a dog*/
+      HAL_IWDG_Refresh(&hiwdg);
+#endif
     }
 
   /* USER CODE END 3 */
@@ -191,7 +204,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-/*��ʱ������*/
+/*time slice task*/
 void Timer_Task(void)
 {
 	for(uint8_t i = 0; i < g_TimerNumbers; i++)
@@ -205,33 +218,31 @@ void Timer_Task(void)
 }
 
 /*
- * ��ѭ���¼�����ʵʱ�A�ģ����Է���ʱ��ע�⿴�Ź�
+ *idle task
  */
 void Idle_task(void)
-{
-	if(rx1ReciveOver_Flag == true)  //������ɱ��?
+{  
+#if (!DEBUGGING)
+  /*Serial port 1 receives data*/
+	if(rx1ReciveOver_Flag == true)  
 	{
-		// MODS_ReciveNew(receive1_buff, rx1Conut);
-		// MODS_Poll();
+  /*4G module communication is not enabled when debug interface is enabled*/
 
-        mdhandler->portRTUPushString(mdhandler, receive1_buff, rx1Conut);
-
-		rx1Conut = 0; //�������?
-		rx1ReciveOver_Flag = false;	//������ս�����־�?
+    mdhandler->portRTUPushString(mdhandler, receive1_buff, rx1Conut);
+		rx1ReciveOver_Flag = false;	
 		memset(receive1_buff, 0, rx1Conut);
-		HAL_UART_Receive_DMA(&huart1, receive1_buff, BUFFER_SIZE); //���´�DMA����
+    rx1Conut = 0; 
+		HAL_UART_Receive_DMA(&huart1, receive1_buff, BUFFER_SIZE);
 	}
-	
-	if(rx2ReciveOver_Flag == true)  //������ɱ��?
-	{
-//		HAL_UART_Transmit_DMA(&huart2, receive2_buff, rx2Conut );
+#endif	
+	if(rx2ReciveOver_Flag == true)
+	{ 
 		DWIN_ReciveNew(receive2_buff, rx2Conut);
 		DWIN_Poll();
-		
-		rx2ReciveOver_Flag = false;	//������ս�����־�?
+		rx2ReciveOver_Flag = false;	
 		memset(receive2_buff, 0, rx2Conut);
-		rx2Conut = 0; //�������?
-		HAL_UART_Receive_DMA(&huart2, receive2_buff, BUFFER_SIZE); //���´�DMA����
+		rx2Conut = 0; 
+		HAL_UART_Receive_DMA(&huart2, receive2_buff, BUFFER_SIZE);
 	}
 }
 /* USER CODE END 4 */

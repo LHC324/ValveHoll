@@ -43,6 +43,7 @@ valveholl-changer\main.o: ../Core/Inc/ChargingHandle.h
 valveholl-changer\main.o: ../Core/Inc/Flash.h
 valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+valveholl-changer\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 valveholl-changer\main.o: ../Core/Inc/adc.h
 valveholl-changer\main.o: ../Core/Inc/dac.h
 valveholl-changer\main.o: ../Core/Inc/dma.h

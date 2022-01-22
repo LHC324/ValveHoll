@@ -10,7 +10,9 @@
 
 #include"main.h"
 
-#define DEBUGGING	0
+#define USING_PART1         0U
+#define USEING_COMPENSATION 1U
+#define USEING_DAC_TABLE    1U
 
 #define USER_NUMBERS		2U
 #define USER_INFOS		    2U
@@ -131,14 +133,26 @@
 #define BREAKCOUNTS								10U			//断路次数10次（5S)
 #define RECOVERYCOUNTS							16U         //断路后恢复次数16次（8S)
 #define CONSTVOLTAGE_COUNTS 					60U			//从恒流进入恒压次数（30S）
+#define MAX_DEFAULT_COUNTS                      5U          //故障复位最大次数
 #define CHECK_COUNTS							50U		    //卡尔曼滤波次数
 #define FAST_CHARGE_CURRENT_COEFFICENT   		1.25F       //一键快充电流是恒流模式中电流的1.25倍
+#if (!USEING_DAC_TABLE)
 #define DA_OUTPUTMAX							3550.0F		//DAC输出最大值
-#define HARDWARE_DAVOLTAGE 						59.0F		//硬件输出最大电压
+#else
+#define DA_OUTPUTMAX							4095.0F		//DAC输出最大值
+#endif
+#define HARDWARE_DAVOLTAGE 						57.0F		//硬件输出最大电压
 #define MAX_BATTERY_CAPCITY						500U		//最大电瓶容量
-#define CURRENT_RATIO                           10.0F       //恒流阶段电流调整倍率
+#define CURRENT_RATIO                           30.0F       //恒流阶段电流调整倍率
+#define MIN_COMPENSATION				        0.1F        //屏幕给定最小补偿电压
+#define MAX_COMPENSATION                        0.5F        //屏幕给定最大补偿电压
+#define MIN_OFFSET_VOLTAGE                      1.0F        //电压差值下限
+#define MAX_OFFSET_VOLTAGE                      1.5F        //电压差值上限
+#define MIN_OFFSET_CURRENT                      0.05F       //电流变化差值
 #define PID_ITERATIONCOUNTS						30U			//PID迭代次数
 #define ADD_COUNTERS                            50U         //底板电源打开时，不能立即打开充电开关，电流太大
+#define CHARGING_END_TIMES                      3600U       //充电结束时，电流恒定时间
+#define PART_SIZE                               12U         //当前DAC分段数
 
 
 typedef enum
@@ -225,6 +239,7 @@ typedef struct
 	bool 	 QuickChargingFlag;		//快速充电标志
 	bool     CloseAcInputFlag;      //关闭交流供电标志
 	bool	 ZeroCurrentFlag;		//
+	bool     ChargingFaultFlag;   //充电故障标志
 //	bool 	 ZeroVoltageFlag;
 //	bool     BreaksFlag;			//断路标志
 	MachineState Mstate;			//充电器工作状态
@@ -236,8 +251,11 @@ typedef struct
 extern ChangeHandle g_Charge;
 extern DisChargeHandle g_DisCharge;
 
+extern const float DAC_Voltage_Interval[PART_SIZE ][2];
+extern float DAC_Param_Interval[PART_SIZE ][2];
+
 static float Get_Current(void);	   		//获取实际电流值
-static float Get_Voltage(void);        	//获取实际电压值
+float Get_Voltage(void);        	    //获取实际电压值
 static void Set_Voltage(float voltage); //设置电压值
 
 static void ChargerHandle(void);      	//充电器事件处理

@@ -19,6 +19,9 @@
         "stdlib.h": "c",
         "string": "c",
         "string.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "clibration.h": "c",
+        "shell_port.h": "c",
+        "shell.h": "c"
     }
 }

@@ -11,12 +11,14 @@
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\FreeModBus\\Inc",
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\PID",
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\Vague_PID",
+                "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\Letter_Shell\\Inc",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\Core\\Src",
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\Drivers\\STM32F1xx_HAL_Driver\\Src",
                 "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\MDK-ARM",
-                "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\FreeModBus\\Src"
+                "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\FreeModBus\\Src",
+                "g:\\STM32_Workers\\Keil_Workers\\ValveHoll-Changer\\Letter_Shell\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

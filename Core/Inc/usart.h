@@ -51,10 +51,9 @@ void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
-void my_Enable(void);
-void USART1_IdleCallback(uint8_t* dat,uint16_t Length);
-void USART2_IdleCallback(uint8_t* dat,uint16_t Length);
-
+static void USART1_IdleCallback(uint8_t* dat,uint16_t Length);
+static void USART2_IdleCallback(uint8_t* dat,uint16_t Length);
+extern void Usart1_Printf(const char *format,...);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

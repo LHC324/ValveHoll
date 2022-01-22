@@ -294,26 +294,28 @@ void TIM1_UP_IRQHandler(void)
   */
 void USART1_IRQHandler(void)
 {
+#if (!DEBUGGING)
   /* USER CODE BEGIN USART1_IRQn 0 */
-    if((__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET))	//»ñÈ¡IDLE±êÖ¾Ê¹,idle±êÖ¾±»ÖÃÊ¹
+    if((__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET))	//èŽ·å–IDLEæ ‡å¿—ä½¿,idleæ ‡å¿—è¢«ç½®ä½¿
     {
-        /*Çå³ý¿ÕéfÖÐ”à±êÖ¾Ê¹*/
+        /*æ¸…é™¤ç©ºé–’ä¸­æ–·æ ‡å¿—ä½¿*/
         __HAL_UART_CLEAR_IDLEFLAG(&huart1);
-        /*Í£Ö¹DMA´«Êä£¬·ÀÖ¹ÔÚ´¦ÀíÊý¾ÝÊ±Ã¦½ÓÊÕÊý¾Ý£¬²úÉú¸ÉÈÅ*/
+        /*åœæ­¢DMAä¼ è¾“ï¼Œé˜²æ­¢åœ¨å¤„ç†æ•°æ®æ—¶å¿™æŽ¥æ”¶æ•°æ®ï¼Œäº§ç”Ÿå¹²æ‰°*/
         HAL_UART_DMAStop(&huart1);
-        /*»ñÈ¡DMAÖÐÎ´´«ÊäµÄÊý¾Ý¸ö”¼*/
-        /*½ÓÊÕµ½Êý’Ý = BUFFERSIZE - µ±Ç°DMAÐÅµÀ´«ÊäÖÐÊ£ÓàµÄÊý¾Ýµ¥Ôª”¼*/
+        /*èŽ·å–DMAä¸­æœªä¼ è¾“çš„æ•°æ®ä¸ªæ•¿*/
+        /*æŽ¥æ”¶åˆ°æ•°æ¿ = BUFFERSIZE - å½“å‰DMAä¿¡é“ä¼ è¾“ä¸­å‰©ä½™çš„æ•°æ®å•å…ƒæ•¿*/
         rx1Conut =  BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-        /*½ÓÊÜÍê³É±êÖ¾Î»ÖÃ1*/
+        /*æŽ¥å—å®Œæˆæ ‡å¿—ä½ç½®1*/
         rx1ReciveOver_Flag = true;
 
-        /*Í¨ÖªÊý¾Ý´¦Àí·½´¦ÀíÊý’Ý*/
+        /*é€šçŸ¥æ•°æ®å¤„ç†æ–¹å¤„ç†æ•°æ¿*/
 //        USART1_IdleCallback(receive1_buff, rx1Conut);
-//        /*Çå³ý±¾´Î¼ÆÊý‚ž*/
+//        /*æ¸…é™¤æœ¬æ¬¡è®¡æ•°å€¿*/
 //        rx1Conut = 0;
-//        /* ÖØÐÂ´ò¿ªDMA½ÓÊÕ*/
+//        /* é‡æ–°æ‰“å¼€DMAæŽ¥æ”¶*/
 //        HAL_UART_Receive_DMA(&huart1, receive1_buff, BUFFER_SIZE);
     }
+#endif
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
@@ -328,24 +330,17 @@ void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
 
-    if((__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET))	//»ñÈ¡IDLE±êÖ¾Ê¹,idle±êÖ¾±»ÖÃÊ¹
+    if((__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET))	//èŽ·å–IDLEæ ‡å¿—ä½¿,idleæ ‡å¿—è¢«ç½®ä½¿
     {
-        /* Çå³ý¿ÕéfÖÐ”à±êÖ¾Ê¹*/
+        /* æ¸…é™¤ç©ºé–’ä¸­æ–·æ ‡å¿—ä½¿*/
         __HAL_UART_CLEAR_IDLEFLAG(&huart2);
-        /* Í£Ö¹DMA´«Êä£¬·ÀÖ¹ÔÚ´¦ÀíÊý¾ÝÊ±Ã¦½ÓÊÕÊý¾Ý£¬²úÉú¸ÉÈÅ*/
+        /* åœæ­¢DMAä¼ è¾“ï¼Œé˜²æ­¢åœ¨å¤„ç†æ•°æ®æ—¶å¿™æŽ¥æ”¶æ•°æ®ï¼Œäº§ç”Ÿå¹²æ‰°*/
         HAL_UART_DMAStop(&huart2);
-        /* »ñÈ¡DMAÖÐÎ´´«ÊäµÄÊý¾Ý¸ö”¼*/
-        /* ½ÓÊÕµ½Êý’Ý = BUFFERSIZE - µ±Ç°DMAÐÅµÀ´«ÊäÖÐÊ£ÓàµÄÊý¾Ýµ¥Ôª”¼*/
+        /* èŽ·å–DMAä¸­æœªä¼ è¾“çš„æ•°æ®ä¸ªæ•¿*/
+        /* æŽ¥æ”¶åˆ°æ•°æ¿ = BUFFERSIZE - å½“å‰DMAä¿¡é“ä¼ è¾“ä¸­å‰©ä½™çš„æ•°æ®å•å…ƒæ•¿*/
         rx2Conut =  BUFFER_SIZE - __HAL_DMA_GET_COUNTER(&hdma_usart2_rx);
-        /* ½ÓÊÜÍê³É±êÖ¾Î»ÖÃ1*/
+        /* æŽ¥å—å®Œæˆæ ‡å¿—ä½ç½®1*/
         rx2ReciveOver_Flag = true;
-
-//        /*Í¨ÖªÊý¾Ý´¦Àí·½´¦ÀíÊý’Ý*/
-//        USART2_IdleCallback(receive2_buff, rx2Conut);
-//        /*Çå³ý±¾´Î¼ÆÊý‚ž*/
-//        rx2Conut = 0;
-//        /* ÖØÐÂ´ò¿ªDMA½ÓÊÕ*/
-//        HAL_UART_Receive_DMA(&huart2, receive2_buff, BUFFER_SIZE);
     }
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);

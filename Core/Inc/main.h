@@ -36,33 +36,34 @@ extern "C" {
 #include "Dwin.h"
 #include "publicfunc.h"
 #include "ChargingHandle.h"
-//#include "myflash.h"
 #include "Flash.h"
 #include "stdio.h"
 #include "string.h"
-
+#include <stdarg.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+/*Open the debug interface, the shell will be enabled*/
+#define DEBUGGING	0
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-#define TIMER_EVENTS 50U	/*软件定时器个敿*/
+#define TIMER_EVENTS 50U	/*Number of software timers*/
 
 typedef void (*ptime)(void);
 typedef struct
 {
-	uint32_t timercnt;		/*硬件定时噿1中断次数＿10ms/次）*/
-	uint32_t targetcnt;		/*事件定时器中断次敿*/
-	uint8_t  execute_flag;	/*对应事件执行标志*/
-	uint8_t  enable;		/*对应事件使能标志*/
-	ptime 	 event;			/*对应事件接口函数*/
+	uint32_t timercnt;		/*current count value*/
+	uint32_t targetcnt;		/*target count*/
+	uint8_t  execute_flag;	/*execute flag*/
+	uint8_t  enable;		/*enable flag*/
+	ptime 	 event;			/*corresponding event*/
 }timer;
 
-extern uint8_t g_TimerNumbers;	/*当前已被使用的软件定时器数量*/
+extern uint8_t g_TimerNumbers;	/*Current number of timers*/
 extern timer   gTim[TIMER_EVENTS];
 /* USER CODE END EC */
 
