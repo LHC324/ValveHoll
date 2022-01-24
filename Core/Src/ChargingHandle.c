@@ -21,6 +21,7 @@
 #include "stdlib.h"
 #include "pid.h"
 #include "fuzzyPID.h"
+#include "clibration.h"
 
 ChangeHandle 	g_Charge    = { 0 }; //__attribute__((at(0x8000000)))
 DisChargeHandle g_DisCharge = { 0 };
@@ -241,18 +242,18 @@ const float DAC_Voltage_Interval[PART_SIZE][2] =
 /*分段存储DAC数字量比列系数*/
 float DAC_Param_Interval[PART_SIZE][2] = 
 {
-	{64.000000F, 10.000000F},	/*(2V-5V]*/
-	{65.199997F, 6.0000000F},	/*(5V-10v]*/
-	{62.400002F, 36.000000F},	/*(10V-15v]*/
-	{64.400002F, 8.0000000F},	/*(15V-20v]*/
-	{64.400002F, 10.000000F},	/*(20V-25v]*/
-	{62.000000F, 72.000000F},	/*(25V-30v]*/
-	{64.000000F, 22.000000F},	/*(30V-35v]*/
-	{63.599998F, 38.000000F},	/*(35V-40v]*/
-	{64.800003F, -8.000000F},	/*(40V-45v]*/
-	{64.800003F, -6.000244F},	/*(45V-50v]*/
-	{65.199997F, -19.999756F},	/*(50V-55v]*/
-	{64.000000F, 48.000000F},	/*(55V-57v]*/	
+	{62.000000F, 16.000000F},	/*(2V-5V]*/
+	{63.200001F, 17.000000F},	/*(5V-10v]*/
+	{65.199997F, -1.000000F},	/*(10V-15v]*/
+	{64.000000F, 19.000000F},	/*(15V-20v]*/
+	{65.000000F, 0.0000000F},	/*(20V-25v]*/
+	{63.799999F, 32.000000F},	/*(25V-30v]*/
+	{63.799999F, 33.000000F},	/*(30V-35v]*/
+	{65.199997F, -13.000000F},	/*(35V-40v]*/
+	{66.400002F, -60.000000F},	/*(40V-45v]*/
+	{64.400002F, 31.0000000F},	/*(45V-50v]*/
+	{65.800003F, -36.000244F},	/*(50V-55v]*/
+	{65.500000F, -17.500000F},	/*(55V-57v]*/	
 };
 #endif
 
@@ -682,10 +683,15 @@ void LTE_Report_ChargeData(void)
  */
 void Flash_Operation(void)
 {
+	uint32_t error;
 	if(g_Charge.IsSavedFlag == true)
 	{
 		/*先写入Flash,在清除单次触发标志*/
-		FLASH_Write(CHARGE_SAVE_ADDRESS, (uint16_t*)&g_Charge, sizeof(g_Charge));
+		error = FLASH_Write(CHARGE_SAVE_ADDRESS, (uint16_t*)&g_Charge, sizeof(g_Charge));
+		Usart1_Printf("error is %0X\r\n", error);
+		g_Charge.TargetTime = 0;
+		FLASH_Read(CHARGE_SAVE_ADDRESS, (uint16_t*)&g_Charge, sizeof(g_Charge));
+		Usart1_Printf("minutes is %d\r\n", g_Charge.TargetTime);
 		g_Charge.IsSavedFlag = false;
 	} 
 }
@@ -1248,8 +1254,12 @@ void CommunicationInit(void)
  * 上电读取FLASH参数
  */
 void FlashReadInit(void)
-{
-    FLASH_Read(CHARGE_SAVE_ADDRESS, &g_Charge, sizeof(g_Charge));
+{	/*错误次数计数器*/
+    uint32_t Error_Counter = 0;
+	float Temp_Voltage = 2.0F;
+
+	Error_Counter = FLASH_Read(CHARGE_SAVE_ADDRESS, &g_Charge, sizeof(g_Charge));
+	Usart1_Printf("flag is  0x%X, minutes is %d \r\n", g_Charge.IsSavedFlag, g_Charge.TargetTime);
 	/*以下参数以24单元，5Ah容量电池计算*/
     if(g_Charge.IsSavedFlag != true)
     {
@@ -1267,6 +1277,61 @@ void FlashReadInit(void)
     }
 	/*清除写Flash操作*/
 	g_Charge.IsSavedFlag = false;
+
+	/*读取充电校准系数*/
+	Error_Counter = FLASH_Read(CLIBRATION_SAVE_ADDR, &Dac, sizeof(Dac));
+	Usart1_Printf("error is 0x%X \r\n", Error_Counter);
+
+	// return ;
+	Error_Counter = 0U;
+	/*充电系数没有校准*/
+	if (Dac.Finish_Flag)
+	{
+		/*打开底板电源供电开关*/
+		HAL_GPIO_WritePin(CHIP_POWER_GPIO_Port, CHIP_POWER_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(POWER_ON_GPIO_Port,   POWER_ON_Pin,   GPIO_PIN_SET);   //电源开关打开
+		HAL_GPIO_WritePin(GPIOA, POWER_ON_Pin|CHARGING_SWITCH_Pin, GPIO_PIN_SET);//充电开关打开
+		HAL_GPIO_WritePin(FANS_POWER_GPIO_Port, FANS_POWER_Pin, GPIO_PIN_SET);   //风扇开关打开
+		/*启动校准,并等待校准成功*/
+		while (!Dac_Clibration())
+		{
+			/*三次校准不成功，报故障*/
+			if (++Error_Counter > 3U)
+			{
+				Error_Counter = 0;
+				/*故障灯闪烁*/
+				while (1)
+				{
+					/*充电状态故障*/
+					g_PresentBatteryInfo.ChargingStatus[1] ^= 1;
+					DWIN_WRITE(CHARGE_STATE_ADDR, g_PresentBatteryInfo.ChargingStatus, \
+			    	sizeof(g_PresentBatteryInfo.ChargingStatus));
+					HAL_Delay(1000);
+				}
+			}
+		}
+	}
+	/*拷贝充电系数到指定区域*/
+	memcpy((uint8_t *)&DAC_Param_Interval, (uint8_t *)&Dac.Para_Arry, sizeof(DAC_Param_Interval));
+
+	for (uint16_t i = 0; i < DAC_NUMS; i++)
+	{
+		for (uint16_t j = 0; j < 2U; j++)
+		{
+			// DAC_Param_Interval[i][j] = Dac.Para_Arry[i][j];
+			Usart1_Printf("DAC_Param_Interval[%d][%d] = %f\t", i, j, DAC_Param_Interval[i][j]);
+		}
+		Usart1_Printf("\r\n");
+	}
+	/*检测输出点电压是否对应:此处Dac.Finish_Flag的初始值为0xFFFF*/
+	while ((Temp_Voltage < HARDWARE_DAVOLTAGE) && (Dac.Finish_Flag))
+	{
+		Set_Voltage(Temp_Voltage);
+		Temp_Voltage += 5.0F;
+		HAL_Delay(5000);
+	}
+	/*清除校准完成标志*/
+	Dac.Finish_Flag = true;
 }
 
 /*

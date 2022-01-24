@@ -35,7 +35,8 @@ void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 0 */
 
   /* USER CODE BEGIN IWDG_Init 1 */
-  /*看门狗溢出时间：Tout= 预分频系�?/时钟频率*重载值（12bit�?*/
+  /*看门狗溢出时间：Tout= Overload value（12bit) * (Prescaler coefficient / clock frequency)*/
+  /*Tout = 1638.4ms*/
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_256;

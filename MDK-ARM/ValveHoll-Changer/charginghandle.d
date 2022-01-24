@@ -60,3 +60,4 @@ valveholl-changer\charginghandle.o: ..\FreeModBus\Inc\mdrecbuffer.h
 valveholl-changer\charginghandle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 valveholl-changer\charginghandle.o: ..\PID\pid.h
 valveholl-changer\charginghandle.o: ..\Vague_PID\fuzzyPID.h
+valveholl-changer\charginghandle.o: ../Core/Inc/clibration.h

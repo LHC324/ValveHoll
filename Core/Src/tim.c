@@ -21,6 +21,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
+#include "iwdg.h"
 TIMER8 g_Timer = {0};
 /* USER CODE END 0 */
 
@@ -122,7 +123,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if(TIM1 == htim->Instance)
     {
-        /*10ms定时中断到*/
+      /*feed a dog*/
+      HAL_IWDG_Refresh(&hiwdg);
+      /*10ms*/
 		for(uint8_t i = 0; i < g_TimerNumbers; i++)
 		{
 			if(gTim[i].enable)    

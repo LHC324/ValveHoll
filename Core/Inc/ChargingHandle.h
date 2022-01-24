@@ -99,9 +99,10 @@
 #define PASSWORD_2_ADDR							0x1225	   //密码2地址
 #define PASSWORD_3_ADDR							0x122A	   //密码3地址
 #define PASSWORD_4_ADDR							0x122F	   //密码4地址
-
-#define CHARGE_SAVE_ADDRESS                     0x0807F800    //充电数据存盘地址
-#define DISCHARGE_SAVE_ADDRESS					0x08007400    //放电数据存盘地址
+/*注意：此芯片flash大小为256KB，定义地址存在越界风险*/
+// #define CHARGE_SAVE_ADDRESS                     0x0807F800
+#define CHARGE_SAVE_ADDRESS                     (STM32FLASH_BASE + 254U * FLASH_PAGE_SIZE)    //充电数据存盘地址(126页)
+// #define DISCHARGE_SAVE_ADDRESS					0x08007400    //放电数据存盘地址
 
 #define MS_CONVERT_MINUTE						60U			//把应硬件定时器10ms换算成分钟
 #define S_CONVERT_HOUR							3600U		//1S累计的电量换算成1h累计的电量

@@ -309,7 +309,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
       shellHandler(&shell, rx_data);
     }
 }
-
+#else
 void Usart1_Printf(const char *format,...)
 {
 	uint16_t len;

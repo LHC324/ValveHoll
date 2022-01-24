@@ -1,12 +1,20 @@
 /*
  * myflash.c
  *
- *  Created on: 2021年07月31日
- *      Author: play
+ *  Created on: 2022年01月23日
+ *      Author: LHC
  */
 
 #include "Flash.h"
 #include "string.h"
+
+/*===================================================================================*/
+/* Flash 分配
+* @用户flash区域：0-125页(2KB/页)
+* @系统参数区： 126页
+* @校准系数存放区域：127页
+*/
+/*===================================================================================*/
 
 /*
  *  初始化FLASH
@@ -27,7 +35,7 @@ void FLASH_Init(void)
  */
 bool FLASH_Read(uint32_t Address, void *Buffer, uint32_t Size)
 {
-	uint16_t *pdata = (uint16_t *)Buffer;
+	uint8_t *pdata = (uint8_t *)Buffer;
 
 	/* 非法地址 */
 	if (Address < STM32FLASH_BASE || (Address > STM32FLASH_END) || Size == 0 || Buffer == NULL)
@@ -35,8 +43,8 @@ bool FLASH_Read(uint32_t Address, void *Buffer, uint32_t Size)
 	
 	for(uint16_t i = 0; i < Size; i++)
 	{
-		pdata[i] = *(__IO uint32_t*)Address;
-		Address += 2U;
+		pdata[i] = *(__IO uint16_t*)Address;
+		Address += 1U;
 	}
 
 	return 1;
@@ -53,9 +61,6 @@ uint32_t FLASH_Write(uint32_t Address, const uint16_t *Buffer, uint32_t Size)
 {   
 	/*初始化FLASH_EraseInitTypeDef*/
     FLASH_EraseInitTypeDef pEraseInit;
-    pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
-    pEraseInit.PageAddress = Address;
-    pEraseInit.NbPages = 1U;
     /*设置PageError*/
     uint32_t PageError = 0;
 	
@@ -66,6 +71,11 @@ uint32_t FLASH_Write(uint32_t Address, const uint16_t *Buffer, uint32_t Size)
 	/*1、解锁FLASH*/
     HAL_FLASH_Unlock();
     /*2、擦除FLASH*/
+	pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
+    pEraseInit.PageAddress = Address;
+    pEraseInit.NbPages = 1U;
+	/*清除flash标志位*/
+	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR);
     HAL_FLASHEx_Erase(&pEraseInit, &PageError);
     /*3、对FLASH烧写*/
     uint16_t TempBuf = 0;
@@ -77,7 +87,8 @@ uint32_t FLASH_Write(uint32_t Address, const uint16_t *Buffer, uint32_t Size)
 		if ((*(__IO uint16_t*) (Address + i * 2) != TempBuf))
 		{
 			return 1;
-		}	
+		}
+		// Usart1_Printf("addr is  %d\r\n", Address);	
     }
     /*4、锁住FLASH*/
     HAL_FLASH_Lock();

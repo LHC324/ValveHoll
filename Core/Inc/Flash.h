@@ -10,13 +10,13 @@
 
 #include "main.h"
 
-/* FLASH大小：512K */
+/* FLASH大小：256KB ,SRAM : 48KB*/
 #define STM32FLASH_SIZE  0x00080000UL
 
 /* FLASH起始地址 */
 #define STM32FLASH_BASE  FLASH_BASE
 
-/* FLASH结束地址 */
+/* FLASH结束地址:此芯片实际flah大小256k，但是使用了VET6的配置*/
 #define STM32FLASH_END   (STM32FLASH_BASE | STM32FLASH_SIZE)
 
 /* FLASH页大小：2K */

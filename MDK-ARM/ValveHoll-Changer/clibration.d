@@ -47,3 +47,6 @@ valveholl-changer\clibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 valveholl-changer\clibration.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 valveholl-changer\clibration.o: ../Core/Inc/usart.h
 valveholl-changer\clibration.o: ../Core/Inc/dac.h
+valveholl-changer\clibration.o: ..\Letter_Shell\Inc\shell_port.h
+valveholl-changer\clibration.o: ..\Letter_Shell\Inc\shell.h
+valveholl-changer\clibration.o: ..\Letter_Shell\Inc\shell_cfg.h

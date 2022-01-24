@@ -147,7 +147,7 @@ int main(void)
       mdRTU_Handler();
 #if (!DEBUGGING)
 		  /*feed a dog*/
-      HAL_IWDG_Refresh(&hiwdg);
+      // HAL_IWDG_Refresh(&hiwdg);
 #endif
     }
 

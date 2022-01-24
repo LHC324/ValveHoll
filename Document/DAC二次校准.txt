@@ -1,0 +1,99 @@
+Sampling_Voltcge = 2.01716N	z昭裂複Y叡諘? 141.
+Sampling_Voltage = 4.950732, Output_Value = 331.
+Sampling_Voltage = 4.950732, Output_Value = 334.
+Sampling_Voltage = 9.965078, Output_Value = 650.
+Sampling_Voltage = 10.016245,?蚜昭}Y叡諘? 654.
+Sampling_Voltage = 15.0?530, Output_Value = 977.
+Sampling_Voltage = 14.987430, Output_VX珪? 979.
+Sampling_Voltage = 20.029316, Output_Value = 1304.
+Sampling_Voltagu = 20.012283, Output_Value(= 1306.
+Sampling_Voltage = 24.964117, Output_Value = 1628.
+Sampling_Voltage = 25.082787, Output_Value = 1629.
+Sampling_Voltage = 29.914364, Output_Value = 1941.
+Sampling_Voltage = 29.914364, Output_Value = 1944.
+Sampling_Voltage = 34.932423, Output_Value = 2267.
+Sampling_Voltage = 34.949375, Output_Value = 2272.
+Sampling_Voltage = 39.815598, Output_Value = 2587.
+Sampling_Voltage = 39.866001, Output_Value = 2590.
+Sampling_Voltage = 44.838947, Output_Value$= 2915.
+Sampling_Voltage = 44.805347, Output_Value = 2919.
+Sampling_Voltage = 49.826469,*?琳複Y叡諘? 3237.
+Sampling_Voltage = 49.809696, Output_Value = 3242.
+Sampling_Voltage = 54.892277,燨utput_Value = 3573.
+Sampling_Voltage = 54.892277, Output_Value = 3575.
+Sampling_Voltage = 56.821312,$Output_Value = 3706.
+DAC_VALUE[0][0] = 141.	DAC_VALUE[0][1] = 331.	
+DAC_VALUE[1][0] = 334.	DAC_VALUE[1][1] = 650.	
+DAC_VALUE[2][0] = 654.	DAC_VALUE[2][1] = 977.	
+DAC_VALUE[3][0] = 979.	DAC_VALUE[3][1] = 1304.	
+DAC_VALUE[4][0] = 1306.	DAC_VALUE[4][1] = 1628.	
+DAC_VALUE[5][0] = 1629.	DAC_VALUE[5][1] = 1941.	
+DAC_VALUE[6][0] = 1944.	DAC_VALUE[6][1] = 2267.	
+DAC_VALUE[7][0] = 2272.	DAC_VALUE[7][1] = 2587.	
+DAC_VALUE[8][0] = 2590.	DAC_VALUE[8][1] = 2915.	
+DAC_VALUE[9][0] = 2919.	DAC_VALUE[9][1] = 3237.	
+DAC_VALUE[10][0] = 3242.	DAC_VALUE[10][1] = 3573.	
+DAC_VALUE[11][0] = 3575.	DAC_VALUE[11][1] = 3706.	
+DAC_PARAM[0][0] = 63.333332	DAC_PARAM[0][1] = 14.333336	
+DAC_PARAM[1][0] = 63.200001	DAC_PARAM[1][1] = 18.000000	
+DAC_PARAM[2][0] = 64.599998	DAC_PARAM[2][1] = 8.000000	
+DAC_PARAM[3][0] = 65.000000	DAC_PARAM[3][1] = 4.000000	
+DAC_PARAM[4][0] = 64.400002	DAC_PARAM[4][1] = 18.000000	
+DAC_PARAM[5][0] = 62.400002	DAC_PARAM[5][1] = 69.000000	
+DAC_PARAM[6][0] = 64.599998	DAC_PARAM[6][1] = 6.000000	
+DAC_PARAM[7][0] = 63.000000	DAC_PARAM[7][1] = 67.000000	
+DAC_PARAM[8][0] = 65.000000	DAC_PARAM[8][1] = -10.000000	
+DAC_PARAM[9][0] = 63.599998	DAC_PARAM[9][1] = 57.000000	
+DAC_PARAM[10][0] = 66.199997	DAC_PARAM[10][1] = -67.999756	
+DAC_PARAM[11][0] = 65.500000	DAC_PARAM[11][1] = -27.500000	
+
+
+
+
+Sampling_Voltage = 2.000113, Output_Value = 140.
+Sampling_Voltage = 4.967788, Output_Value = 326.
+Sampling_Voltage = 4.967788, Output_Value = 333.
+Sampling_Voltage = 9.999189, Output_Value = 649.
+Sampling_Voltage = 9.965078, Output_Value = 651.
+Sampling_Voltage = 14.970397, Output_Value = 977.
+Sampling_Voltage = 14.970397, Output_Value = 979.
+Sampling_Voltage = 19.978216, Output_Value = 1299.
+Sampling_Voltage = 19.978216, Output_Value = 1300.
+Sampling_Voltage = 25.014975, Output_Value = 1625.
+Sampling_Voltage = 24.998022, Output_Value = 1627.
+Sampling_Voltage = 30.033033, Output_Value = 1946.
+Sampling_VoltXV?捠r事拪孩bz昭琳複Y嚤諘? 1947.
+Sampling_Voltage = 34.983280, Output_Value = 2266.
+Sampling_Voltage = 34.983280, Output_Value = 2269.
+Sampling_Voltage = 39.983604, Output_Value = 2595.
+Samplinge醣補ge = 40.097204, Output_Value = 2596.
+Sampling_Voltage = 45.040554, Output_Value = 2928.
+Sampling_Voltage = 44.973351, Output_Value = 2929.
+Sampling_Voltage = 49.960663, Output_Value = 3251.
+Sampling_Voltage = 49.994209, O鮰put_Value = 3254.
+Sampling_Voltage = 55.026470, Output_Value = 3583.
+Sampling_Voltage = 54.976147, Output_Value = 3585.Sampling_Voltage = 56.989052, Output_Value = 3716.
+DAC_VALUE[0][0] = 140.	DAC_VALUE[0][1] = 326.	
+DAC_VALUE[1][0] = 333.	DAC_VALUE[1][1] = 649.	
+DAC_VALUE[2][0] = 651.	DAC_VALUE[2][1] = 977.	
+DAC_VALUE[3][0] = 979.	DAC_VALUE[3][1] = 1299.	
+DAC_VALUE[4][0] = 1300.	DAC_VALUE[4][1] = 1625.	
+DAC_VALUE[5][0] = 1627.	DAC_VALUE[5][1] = 1946.	
+DAC_VALUE[6][0] = 1947.	DAC_VALUE[6][1] = 2266.	
+DAC_VALUE[7][0] = 2269.	DAC_VALUE[7][1] = 2595.	
+DAC_VALUE[8][0] = 2596.	DAC_VALUE[8][1] = 2928.	
+DAC_VALUE[9][0] = 2929.	DAC_VALUE[9][1] = 3251.	
+DAC_VALUE[10][0] = 3254.	DAC_VALUE[10][1] = 3583.	
+DAC_VALUE[11][0] = 3585.	DAC_VALUE[11][1] = 3716.	
+DAC_PARAM[0][0] = 62.000000	DAC_PARAM[0][1] = 16.000000	
+DAC_PARAM[1][0] = 63.200001	DAC_PARAM[1][1] = 17.000000	
+DAC_PARAM[2][0] = 65.199997	DAC_PARAM[2][1] = -1.000000	
+DAC_PARAM[3][0] = 64.000000	DAC_PARAM[3][1] = 19.000000	
+DAC_PARAM[4][0] = 65.000000	DAC_PARAM[4][1] = 0.000000	
+DAC_PARAM[5][0] = 63.799999	DAC_PARAM[5][1] = 32.000000	
+DAC_PARAM[6][0] = 63.799999	DAC_PARAM[6][1] = 33.000000	
+DAC_PARAM[7][0] = 65.199997	DAC_PARAM[7][1] = -13.000000	
+DAC_PARAM[8][0] = 66.400002	DAC_PARAM[8][1] = -60.000000	
+DAC_PARAM[9][0] = 64.400002	DAC_PARAM[9][1] = 31.000000	
+DAC_PARAM[10][0] = 65.800003	DAC_PARAM[10][1] = -36.000244	
+DAC_PARAM[11][0] = 65.500000	DAC_PARAM[11][1] = -17.500000
