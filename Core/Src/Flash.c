@@ -29,6 +29,7 @@ void FLASH_Init(void)
 /**
  * 读FLASH
  * @param  Address 地址
+ * @note   为了兼容各种数据类型，按字节读取
  * @param  Buffer  存放读取的数据
  * @param  Size    要读取的数据大小，单位字节
  * @return         读出成功的字节数

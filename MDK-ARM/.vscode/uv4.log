@@ -2,8 +2,8 @@
 Build target 'ValveHoll-Changer'
 compiling ModbusMaster.c...
 linking...
-Program Size: Code=41932 RO-data=2916 RW-data=664 ZI-data=21344  
+Program Size: Code=41952 RO-data=2916 RW-data=664 ZI-data=21344  
 FromELF: creating hex file...
 After Build - User command #2: fromelf.exe --bin -o "ValveHoll-Changer\ValveHoll-Changer.bin" "ValveHoll-Changer\ValveHoll-Changer.axf"
 "ValveHoll-Changer\ValveHoll-Changer.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [ValveHoll-Changer\ValveHoll-Changer.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ValveHoll-Changer\ValveHoll-Changer.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jan 24 15:50:22 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jan 25 12:10:04 2022
 <BR><P>
 <H3>Maximum Stack Usage =        604 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1346,12 +1346,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[136]"></a>ChargingProcess</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, charginghandle.o(i.ChargingProcess))
+<P><STRONG><a name="[136]"></a>ChargingProcess</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, charginghandle.o(i.ChargingProcess))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ChargingProcess &rArr; Get_VoltageMicroCompensate &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_VoltageMicroCompensate
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
 </UL>
@@ -1359,11 +1359,11 @@ Global Symbols
 <P><STRONG><a name="[135]"></a>Check_ChargingDisconnection</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, charginghandle.o(i.Check_ChargingDisconnection))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Check_ChargingDisconnection &rArr; Get_Voltage &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
@@ -1375,11 +1375,11 @@ Global Symbols
 <LI>Call Chain = CommunicationInit &rArr; Dac_Clibration &rArr; Usart1_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Usart1_Printf
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Read
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DWIN_WRITE
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DWIN_InportMap
@@ -1457,7 +1457,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_DataHandle
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommunicationInit
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_RealTime
 <LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_ChargeData
@@ -1474,12 +1474,12 @@ Global Symbols
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DAC_SetValue
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FLASH_Write
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
@@ -1494,7 +1494,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = EndianSwap
 </UL>
 <BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_DataHandle
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
 </UL>
 
 <P><STRONG><a name="[155]"></a>Error_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
@@ -1549,20 +1549,20 @@ Global Symbols
 <P><STRONG><a name="[14f]"></a>GetAdcToDmaValue</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, adc.o(i.GetAdcToDmaValue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = GetAdcToDmaValue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sampling_handle
 </UL>
 
-<P><STRONG><a name="[12a]"></a>Get_Voltage</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, charginghandle.o(i.Get_Voltage))
+<P><STRONG><a name="[129]"></a>Get_Voltage</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, charginghandle.o(i.Get_Voltage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Get_Voltage &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetAdcToDmaValue
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sampling_handle
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -1572,9 +1572,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Get_VoltageMicroCompensate &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
@@ -1746,7 +1746,7 @@ Global Symbols
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_MspInit
 </UL>
 
-<P><STRONG><a name="[129]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin))
+<P><STRONG><a name="[132]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommunicationInit
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -2138,7 +2138,7 @@ Global Symbols
 <P><STRONG><a name="[18b]"></a>MX_GPIO_Init</STRONG> (Thumb, 202 bytes, Stack size 56 bytes, gpio.o(i.MX_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = MX_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -2214,13 +2214,13 @@ Global Symbols
 <P><STRONG><a name="[29]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.NMI_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[131]"></a>OtherEvent</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, charginghandle.o(i.OtherEvent))
+<P><STRONG><a name="[130]"></a>OtherEvent</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, charginghandle.o(i.OtherEvent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = OtherEvent &rArr; Get_Voltage &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -2229,7 +2229,7 @@ Global Symbols
 <P><STRONG><a name="[30]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.PendSV_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[130]"></a>Report_BackChargingData</STRONG> (Thumb, 64 bytes, Stack size 80 bytes, charginghandle.o(i.Report_BackChargingData))
+<P><STRONG><a name="[12f]"></a>Report_BackChargingData</STRONG> (Thumb, 64 bytes, Stack size 80 bytes, charginghandle.o(i.Report_BackChargingData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndianSwap
@@ -2246,7 +2246,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndianSwap
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DWIN_WRITE
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_ChargeData
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LTE_Report_ChargeData
@@ -2340,10 +2340,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 
-<P><STRONG><a name="[134]"></a>getChargingState</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, charginghandle.o(i.getChargingState))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = getChargingState &rArr; __aeabi_cfcmple
+<P><STRONG><a name="[134]"></a>getChargingState</STRONG> (Thumb, 184 bytes, Stack size 32 bytes, charginghandle.o(i.getChargingState))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = getChargingState &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -2352,8 +2354,8 @@ Global Symbols
 <P><STRONG><a name="[19a]"></a>kalmanFilter</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, publicfunc.o(i.kalmanFilter))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = kalmanFilter &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
@@ -2529,10 +2531,10 @@ Global Symbols
 <P><STRONG><a name="[1bc]"></a>shellExtParsePara</STRONG> (Thumb, 532 bytes, Stack size 24 bytes, shell_ext.o(i.shellExtParsePara))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = shellExtParsePara &rArr; shellSeekCommand &rArr; strncmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[1ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shellSeekCommand
 <LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shellGetVarValue
 </UL>
@@ -2800,9 +2802,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_VoltageMicroCompensate
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommunicationInit
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
@@ -2823,18 +2825,18 @@ Global Symbols
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fcmpeq
 </UL>
 
-<P><STRONG><a name="[12c]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
+<P><STRONG><a name="[12b]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fdiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
 <LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_DataHandle
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_VoltageMicroCompensate
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TrickleChargeTargetVoltage
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TrickleChargeCurrent
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_SecondBootvoltage
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConstantVoltage_Voltage
 <LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConstantVoltageTargetCurrent
 <LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConstantCurrent_Current
@@ -2860,11 +2862,11 @@ Global Symbols
 <LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fcmp_Inf
 </UL>
 
-<P><STRONG><a name="[12e]"></a>__aeabi_f2uiz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffixu.o(x$fpl$ffixu))
+<P><STRONG><a name="[12d]"></a>__aeabi_f2uiz</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, ffixu.o(x$fpl$ffixu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2uiz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBatteryCapacity
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
 </UL>
@@ -2880,15 +2882,16 @@ Global Symbols
 
 <P><STRONG><a name="[21a]"></a>_fflt</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$fflt), UNUSED)
 
-<P><STRONG><a name="[12b]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
+<P><STRONG><a name="[12a]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
 <BR><BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChargingState
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TrickleChargeTargetVoltage
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TrickleChargeCurrent
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_SecondBootvoltage
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBatteryCapacity
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sampling_handle
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ConstantVoltage_Voltage
@@ -2901,12 +2904,12 @@ Global Symbols
 
 <P><STRONG><a name="[21b]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
 
-<P><STRONG><a name="[132]"></a>__aeabi_cfcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fleqf.o(x$fpl$fleqf))
+<P><STRONG><a name="[131]"></a>__aeabi_cfcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fleqf.o(x$fpl$fleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cfcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChargingState
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -2921,15 +2924,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_frcmple
 </UL>
 
-<P><STRONG><a name="[12d]"></a>__aeabi_fmul</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul))
+<P><STRONG><a name="[12c]"></a>__aeabi_fmul</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Dac_Clibration
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChargingState
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_VoltageMicroCompensate
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargingProcess
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBatteryCapacity
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sampling_handle
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -3037,23 +3041,23 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
-<P><STRONG><a name="[a]"></a>ChargerHandle</STRONG> (Thumb, 558 bytes, Stack size 56 bytes, charginghandle.o(i.ChargerHandle))
+<P><STRONG><a name="[a]"></a>ChargerHandle</STRONG> (Thumb, 526 bytes, Stack size 56 bytes, charginghandle.o(i.ChargerHandle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = ChargerHandle &rArr; Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChargingState
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OtherEvent
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_ChargingDisconnection
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargingProcess
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_Voltage
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
@@ -3075,32 +3079,32 @@ Local Symbols
 <P><STRONG><a name="[14]"></a>ConstantCurrentTargetVoltage</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.ConstantCurrentTargetVoltage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ConstantCurrentTargetVoltage &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
 <P><STRONG><a name="[13]"></a>ConstantCurrent_Current</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.ConstantCurrent_Current))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ConstantCurrent_Current &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
 <P><STRONG><a name="[16]"></a>ConstantVoltageTargetCurrent</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.ConstantVoltageTargetCurrent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ConstantVoltageTargetCurrent &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
 <P><STRONG><a name="[15]"></a>ConstantVoltage_Voltage</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.ConstantVoltage_Voltage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ConstantVoltage_Voltage &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
@@ -3157,14 +3161,14 @@ Local Symbols
 <P><STRONG><a name="[1c]"></a>RestoreFactory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, charginghandle.o(i.RestoreFactory))
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
-<P><STRONG><a name="[9]"></a>Sampling_handle</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, charginghandle.o(i.Sampling_handle))
+<P><STRONG><a name="[9]"></a>Sampling_handle</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, charginghandle.o(i.Sampling_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Sampling_handle &rArr; Get_Voltage &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetAdcToDmaValue
-<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
 <LI><a href="#[19a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;kalmanFilter
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
@@ -3173,20 +3177,20 @@ Local Symbols
 <P><STRONG><a name="[17]"></a>SetBatteryCapacity</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, charginghandle.o(i.SetBatteryCapacity))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = SetBatteryCapacity &rArr; Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
-<P><STRONG><a name="[12f]"></a>Set_BaterrryVoltageInfo</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, charginghandle.o(i.Set_BaterrryVoltageInfo))
+<P><STRONG><a name="[12e]"></a>Set_BaterrryVoltageInfo</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, charginghandle.o(i.Set_BaterrryVoltageInfo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Set_BaterrryVoltageInfo &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_UnitElements
 <LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ChargerHandle
@@ -3210,16 +3214,16 @@ Local Symbols
 <P><STRONG><a name="[1a]"></a>Set_SecondBootvoltage</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.Set_SecondBootvoltage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Set_SecondBootvoltage &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
 <P><STRONG><a name="[19]"></a>Set_UnitElements</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, charginghandle.o(i.Set_UnitElements))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = Set_UnitElements &rArr; Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
+<BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Set_BaterrryVoltageInfo
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
@@ -3228,9 +3232,9 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DAC_SetValue
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2uiz
 <LI><a href="#[19b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmpeq
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
@@ -3253,16 +3257,16 @@ Local Symbols
 <P><STRONG><a name="[11]"></a>TrickleChargeCurrent</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.TrickleChargeCurrent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = TrickleChargeCurrent &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
 <P><STRONG><a name="[12]"></a>TrickleChargeTargetVoltage</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, charginghandle.o(i.TrickleChargeTargetVoltage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = TrickleChargeTargetVoltage &rArr; __aeabi_fdiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>

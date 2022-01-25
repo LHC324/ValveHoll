@@ -1,4 +1,4 @@
-Sampling_Voltcge = 2.01716N	z昭裂複Y叡諘? 141.
+﻿Sampling_Voltcge = 2.01716N	z昭裂複Y叡諘? 141.
 Sampling_Voltage = 4.950732, Output_Value = 331.
 Sampling_Voltage = 4.950732, Output_Value = 334.
 Sampling_Voltage = 9.965078, Output_Value = 650.
@@ -97,3 +97,67 @@ DAC_PARAM[8][0] = 66.400002	DAC_PARAM[8][1] = -60.000000
 DAC_PARAM[9][0] = 64.400002	DAC_PARAM[9][1] = 31.000000	
 DAC_PARAM[10][0] = 65.800003	DAC_PARAM[10][1] = -36.000244	
 DAC_PARAM[11][0] = 65.500000	DAC_PARAM[11][1] = -17.500000
+
+
+flag is  0xFFFF, minutes is 65535 
+error is 0x1 
+Sampling_Voltage = 2.000113, Output_Value = ?4.
+Sampling_Voltage = 4.950732, Output_Value = 336.
+Sampling_Voltage = 4.967788, Output_Value = 341.
+Sampling_Voltage = 10.016245, Output_Value = 653.
+Sampling_Voltage = 9.965078, Output_Value = 656.
+Sampling_Voltage = 14.953363, Output_Value = 981.
+Sampling_Voltage = 14.953363, Output_Value = 982.
+Sampling_Voltage = 20.029316, Output_Value = 1304.
+Sampling_Voltage = 19.978216, Output_Value = 1307.
+Sampling_Voltage = 24.998022, Output_Value = 1629.
+Sampling_Voltage = 24.981070, Output_Value = 1631.
+Sampling_Voltage = 29.999128, Output_Value = 1947.
+Sampling_Voltage = 29.965221, Output_Value = 1952.
+Sampling_Voltage = 35.000233, Output_Value = 2272.
+Sampling_Voltage = 34.966328, Output_Value = 2273.
+Sampling_Voltage = 39.950001, Output_Value = 2602.
+Sampling_Voltage = 40.017204, Output_Value = 2605.
+Sampling_Voltage = 44.956551, Output_Value = 2930.
+Sampling_Voltage = 44.956551, Output_Value = 2931.
+Sampling_Voltage = 50.010986, Output_Value = 3253.
+Sampling_Voltage = 49.977436, Output_Value = 3256.
+Sampling_Voltage = 54.992924, Output_Value = 3583.
+Sampling_Voltage = 55.026470, Output_Value = 3586.
+Sampling_Voltage = 57.005825, Output_Value = 3717.
+DAC_VALUE[0][0] = 144.	DAC_VALUE[0][1] = 336.	
+DAC_VALUE[1][0] = 341.	DAC_VALUE[1][1] = 653.	
+DAC_VALUE[2][0] = 656.	DAC_VALUE[2][1] = 981.	
+DAC_VALUE[3][0] = 982.	DAC_VALUE[3][1] = 1304.	
+DAC_VALUE[4][0] = 1307.	DAC_VALUE[4][1] = 1629.	
+DAC_VALUE[5][0] = 1631.	DAC_VALUE[5][1] = 1947.	
+DAC_VALUE[6][0] = 1952.	DAC_VALUE[6][1] = 2272.	
+DAC_VALUE[7][0] = 2273.	DAC_VALUE[7][1] = 2602.	
+DAC_VALUE[8][0] = 2605.	DAC_VALUE[8][1] = 2930.	
+DAC_VALUE[9][0] = 2931.	DAC_VALUE[9][1] = 3253.	
+DAC_VALUE[10][0] = 3256.	DAC_VALUE[10][1] = 3583.	
+DAC_VALUE[11][0] = 3586.	DAC_VALUE[11][1] = 3717.	
+Dac.Para_Arry[0][0] = 64.000000	Dac.Para_Arry[0][1] = 16.000000	
+Dac.Para_Arry[1][0] = 62.400002	Dac.Para_Arry[1][1] = 29.000000	
+Dac.Para_Arry[2][0] = 65.000000	Dac.Para_Arry[2][1] = 6.000000	
+Dac.Para_Arry[3][0] = 64.400002	Dac.Para_Arry[3][1] = 16.000000	
+Dac.Para_Arry[4][0] = 64.400002	Dac.Para_Arry[4][1] = 19.000000	
+Dac.Para_Arry[5][0] = 63.200001	Dac.Para_Arry[5][1] = 51.000000	
+Dac.Para_Arry[6][0] = 64.000000	Dac.Para_Arry[6][1] = 32.000000	
+Dac.Para_Arry[7][0] = 65.800003	Dac.Para_Arry[7][1] = -30.000000	
+Dac.Para_Arry[8][0] = 65.000000	Dac.Para_Arry[8][1] = 5.000000	
+Dac.Para_Arry[9][0] = 64.400002	Dac.Para_Arry[9][1] = 33.000000	
+Dac.Para_Arry[10][0] = 65.400002	Dac.Para_Arry[10][1] = -14.000000	
+Dac.Para_Arry[11][0] = 65.500000	Dac.Para_Arry[11][1] = -16.500000	
+DAC_Param_Interval[0][0] = 64.000000	DAC_Param_Interval[0][1] = 16.000000	
+DAC_Param_Interval[1][0] = 62.400002	DAC_Param_Interval[1][1] = 29.000000	
+DAC_Param_Interval[2][0] = 65.000000	DAC_Param_Interval[2][1] = 6.000000	
+DAC_Param_Interval[3][0] = 64.400002	DAC_Param_Interval[3][1] = 16.000000	
+DAC_Param_Interval[4][0] = 64.400002	DAC_Param_Interval[4][1] = 19.000000	
+DAC_Param_Interval[5][0] = 63.200001	DAC_Param_Interval[5][1] = 51.000000	
+DAC_Param_Interval[6][0] = 64.000000	DAC_Param_Interval[6][1] = 32.000000	
+DAC_Param_Interval[7][0] = 65.800003	DAC_Param_Interval[7][1] = -30.000000	
+DAC_Param_Interval[8][0] = 65.000000	DAC_Param_Interval[8][1] = 5.000000	
+DAC_Param_Interval[9][0] = 64.400002	DAC_Param_Interval[9][1] = 33.000000	
+DAC_Param_Interval[10][0] = 65.400002	DAC_Param_Interval[10][1] = -14.000000	
+DAC_Param_Interval[11][0] = 65.500000	DAC_Param_Interval[11][1] = -16.500000	

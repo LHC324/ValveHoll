@@ -106,7 +106,7 @@
 
 #define MS_CONVERT_MINUTE						60U			//把应硬件定时器10ms换算成分钟
 #define S_CONVERT_HOUR							3600U		//1S累计的电量换算成1h累计的电量
-#define CHECK_VOLTAGE							5.00F       //电压检测值
+#define CHECK_VOLTAGE							2.00F       //电压检测值
 #define CHARGING_ENDCURRENT 					0.50F		//充电截止电流
 
 #define SINGLEUNIT_MAXCURRENT					0.10F	    //单个单元恒流电流选用电池容量的0.10C
@@ -134,7 +134,7 @@
 #define BREAKCOUNTS								10U			//断路次数10次（5S)
 #define RECOVERYCOUNTS							16U         //断路后恢复次数16次（8S)
 #define CONSTVOLTAGE_COUNTS 					60U			//从恒流进入恒压次数（30S）
-#define MAX_DEFAULT_COUNTS                      5U          //故障复位最大次数
+#define MAX_DEFAULT_COUNTS                      3U          //故障复位最大次数
 #define CHECK_COUNTS							50U		    //卡尔曼滤波次数
 #define FAST_CHARGE_CURRENT_COEFFICENT   		1.25F       //一键快充电流是恒流模式中电流的1.25倍
 #if (!USEING_DAC_TABLE)
@@ -149,7 +149,9 @@
 #define MAX_COMPENSATION                        0.5F        //屏幕给定最大补偿电压
 #define MIN_OFFSET_VOLTAGE                      1.0F        //电压差值下限
 #define MAX_OFFSET_VOLTAGE                      1.5F        //电压差值上限
-#define MIN_OFFSET_CURRENT                      0.05F       //电流变化差值
+// #define MIN_OFFSET_CURRENT                      0.05F       //电流变化差值
+#define MIN_OFFSET_CURRENT                      0.01F       //电流变化差值
+#define FLUCTUATION_ERROR                       0.20F       //输出电压与采集电压允许最小差距
 #define PID_ITERATIONCOUNTS						30U			//PID迭代次数
 #define ADD_COUNTERS                            50U         //底板电源打开时，不能立即打开充电开关，电流太大
 #define CHARGING_END_TIMES                      3600U       //充电结束时，电流恒定时间
