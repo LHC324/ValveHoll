@@ -60,6 +60,8 @@
 		- **while ((Temp_Voltage < HARDWARE_DAVOLTAGE) && (Dac.Finish_Flag))** 中 **Dac.Finish_Flag** 在
 		**Dac_Clibration()** 执行后 **Dac.Finish_Flag == false** , 导致该段校验程序失效。
 
+	![Clibration.jpg](Document/Clibration.jpg)
+
 ## 测试项目
 
 - 电压、电流的ADC校准与测试。
