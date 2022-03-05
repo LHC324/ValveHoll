@@ -1115,11 +1115,19 @@ void ChargerEvent(void)
 	if(g_PresentBatteryInfo.ZeroCurrentFlag == true) 
 	{	
 		static uint8_t i;
+		static uint8_t j;
 		/*考虑电路中电容特性：8S后再检测*/
 		if(i++ == RECOVERYCOUNTS) 
 		{
 			i = 0;
 			g_PresentBatteryInfo.ZeroCurrentFlag = false;
+			/*连续三次检测电流为0，故障*/
+			if (++j == MAX_DEFAULT_COUNTS)
+			{
+				j = 0;
+				g_PresentBatteryInfo.ChargingFaultFlag = true;
+				g_PresentBatteryInfo.Cstate  = error;
+			}
 		}
 	}
 	/*充电故障导致的待机，设置输出电压为0v*/
@@ -1417,14 +1425,25 @@ void RestoreFactory(uint8_t* dat, uint8_t length)
 	
 }
 
+/*判定屏幕输入参数的上下限*/
+#define CHECK_LIMIT(Value, Min, MAX) \
+(Value <= MAX ? (true) : (Value >= Min ? (true) : (false)))
+
+/*组合字节码数据*/
+#define GET_DATA(Dat) (((uint16_t)dat[0]) << 8 | dat[1])
+
 /*
  *   修改充电参数
  */
 void ChargeTargetTime(uint8_t* dat, uint8_t length)
 {
-    /*不论是进那个映射函数，都必须带上此标志，掉电后参数恢复标志*/
+	g_Charge.TargetTime = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.TargetTime, 1U, CHARGING_MAX_TIMES))
+	{
+		return;
+	}
+	/*不论是进那个映射函数，都必须带上此标志，掉电后参数恢复标志*/
     g_Charge.IsSavedFlag = true;
-	g_Charge.TargetTime = ((uint16_t)dat[0]) << 8 | dat[1];
 	/*把目标充电时间写入保持寄存器对应地址单元*/
 	mdhandler->registerPool->mdWriteHoldRegister(mdhandler->registerPool, MDREGISTER_TAGATTIMES_ADDR, g_Charge.TargetTime);
 //    HAL_UART_Transmit_DMA(&huart1, dat, length);	//测试
@@ -1432,91 +1451,121 @@ void ChargeTargetTime(uint8_t* dat, uint8_t length)
 
 void TrickleChargeCurrent(uint8_t* dat, uint8_t length)
 {
+    g_Charge.TrickleCurrent = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.TrickleCurrent, 1U, TRICKLE_MAX_CURRENT))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.TrickleCurrent = ((uint16_t)dat[0]) << 8 | dat[1];
-
 	g_PresentBatteryInfo.User_TrickleCurrent = g_Charge.TrickleCurrent / 10.0F;
 }
 
 void TrickleChargeTargetVoltage(uint8_t* dat, uint8_t length)
 {
+    g_Charge.TrickleTargetVlotage = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.TrickleTargetVlotage, 1U, TRICKLE_MAX_VOLTAGE))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.TrickleTargetVlotage = ((uint16_t)dat[0]) << 8 | dat[1];
-
 	g_PresentBatteryInfo.User_TrickleTargetVlotage = g_Charge.TrickleTargetVlotage / 10.0F;
 }
 
 void ConstantCurrent_Current(uint8_t * dat, uint8_t length)
 {	
+    g_Charge.ConstantCurrent_Current = GET_DATA(dat); 
+	if (!CHECK_LIMIT(g_Charge.ConstantCurrent_Current, 1U, CONST_CURRENT_MAX_CURRENT))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.ConstantCurrent_Current = ((uint16_t)dat[0]) << 8 | dat[1]; 
-
 	g_PresentBatteryInfo.User_ConstantCurrent_Current 	   = g_Charge.ConstantCurrent_Current / 10.0F;
 }
 
 void ConstantCurrentTargetVoltage(uint8_t* dat, uint8_t length)
 {	
+    g_Charge.ConstantCurrentTargetVoltage = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.ConstantCurrentTargetVoltage, 1U, CONST_CURRENT_MAX_VOLTAGE))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.ConstantCurrentTargetVoltage = ((uint16_t)dat[0]) << 8 | dat[1];
-	
 	g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage = g_Charge.ConstantCurrentTargetVoltage / 10.0F;
-}
-
-void ConstantVoltage_Voltage(uint8_t* dat, uint8_t length)
-{	
-	g_Charge.IsSavedFlag = true;
-    g_Charge.ConstantVoltage_Voltage = ((uint16_t)dat[0]) << 8 | dat[1];
-
-	g_PresentBatteryInfo.User_ConstantVoltage_Voltage = g_Charge.ConstantVoltage_Voltage / 10.0F;
 }
 
 void ConstantVoltageTargetCurrent(uint8_t* dat, uint8_t length)
 {	
+    g_Charge.ConstantVoltageTargetCurrent = GET_DATA(dat); 
+	if (!CHECK_LIMIT(g_Charge.ConstantVoltageTargetCurrent, 1U, CONST_VOLTAGE_MAX_CURRENT))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.ConstantVoltageTargetCurrent = ((uint16_t)dat[0]) << 8 | dat[1]; 
-
 	g_PresentBatteryInfo.User_ConstantVoltageTargetCurrent = g_Charge.ConstantVoltageTargetCurrent / 10.0F;
+}
+
+void ConstantVoltage_Voltage(uint8_t* dat, uint8_t length)
+{	
+    g_Charge.ConstantVoltage_Voltage = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.ConstantVoltage_Voltage, 1U, CONST_VOLTAGE_MAX_VOLTAGE))
+	{
+		return;
+	}
+	g_Charge.IsSavedFlag = true;
+	g_PresentBatteryInfo.User_ConstantVoltage_Voltage = g_Charge.ConstantVoltage_Voltage / 10.0F;
 }
 
 void SetBatteryCapacity(uint8_t* dat, uint8_t length)
 {	
-	g_Charge.BatteryCapacity = ((uint16_t)dat[0]) << 8 | dat[1];
-	
+	g_Charge.BatteryCapacity = GET_DATA(dat);
 	/*电池容量不超过500Ah*/
-	if(g_Charge.BatteryCapacity <= MAX_BATTERY_CAPCITY)
+	if (!CHECK_LIMIT(g_Charge.BatteryCapacity, MIN_BATTERY_CAPCITY, MAX_BATTERY_CAPCITY))
 	{
-		g_Charge.IsSavedFlag = true;
-		/*一旦更新过电池容量，立马更新充电电流信息*/
-		Set_BaterrryCurrentInfo();
-		/*更新屏幕信息*/
-		Report_BackChargingData();
+		return;
 	}
+	
+	g_Charge.IsSavedFlag = true;
+	/*一旦更新过电池容量，立马更新充电电流信息*/
+	Set_BaterrryCurrentInfo();
+		/*更新屏幕信息*/
+	Report_BackChargingData();
 }
 
 /*设置起充电压步进补偿值*/
 void ChargeCompensation(uint8_t* dat, uint8_t length)
 {	
+    g_Charge.Compensation = GET_DATA(dat); 
+	if (!CHECK_LIMIT(g_Charge.Compensation, COMPENSATION_MIN, COMPENSATION_MAX))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-    g_Charge.Compensation = ((uint16_t)dat[0]) << 8 | dat[1]; 
 }
 
 /*设置电瓶单元个数*/
 void Set_UnitElements(uint8_t* dat, uint8_t length)
 {	
-	g_Charge.IsSavedFlag = true;
-	g_Charge.UnitElements = ((uint16_t)dat[0]) << 8 | dat[1];
-	/*校准当前电池的单元个数信息*/
-	Set_BaterrryVoltageInfo(0U);
-	/*更新充电器后台充电参数*/
-	Report_BackChargingData();
+	g_Charge.UnitElements = GET_DATA(dat);
+	/*warning:  #186-D: pointless comparison of unsigned integer with zero*/
+	if (g_Charge.UnitElements <= MAX_UNITS)
+	{
+		g_Charge.IsSavedFlag = true;
+		/*校准当前电池的单元个数信息*/
+		Set_BaterrryVoltageInfo(0U);
+		/*更新充电器后台充电参数*/
+		Report_BackChargingData();
+	}
 }
 
 /*设置二次起充电压*/
 void Set_SecondBootvoltage(uint8_t* dat, uint8_t length)
 {	
+	g_Charge.SecondBootVoltage = GET_DATA(dat);
+	if (!CHECK_LIMIT(g_Charge.SecondBootVoltage, 1U, SECONDE_MAX_VOLTAGE))
+	{
+		return;
+	}
 	g_Charge.IsSavedFlag = true;
-	g_Charge.SecondBootVoltage = ((uint16_t)dat[0]) << 8 | dat[1];
-
 	g_PresentBatteryInfo.User_SecondBootVoltage	= g_Charge.SecondBootVoltage / 10.0F;
 }
 

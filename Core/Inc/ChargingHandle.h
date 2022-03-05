@@ -143,7 +143,6 @@
 #define DA_OUTPUTMAX							4095.0F		//DAC输出最大值
 #endif
 #define HARDWARE_DAVOLTAGE 						57.0F		//硬件输出最大电压
-#define MAX_BATTERY_CAPCITY						500U		//最大电瓶容量
 #define CURRENT_RATIO                           30.0F       //恒流阶段电流调整倍率
 #define MIN_COMPENSATION				        0.1F        //屏幕给定最小补偿电压
 #define MAX_COMPENSATION                        0.5F        //屏幕给定最大补偿电压
@@ -157,6 +156,34 @@
 #define CHARGING_END_TIMES                      3600U       //充电结束时，电流恒定时间
 #define PART_SIZE                               12U         //当前DAC分段数
 
+/*电池充电时间上限:24H*/
+#define CHARGING_MAX_TIMES (24U * 60U)
+/*涓流最大电流:20AH*/
+#define TRICKLE_MAX_CURRENT 20U
+/*涓流最大电压:42V*/
+#define TRICKLE_MAX_VOLTAGE 42U
+/*恒流最大电流:50AH*/
+#define CONST_CURRENT_MAX_CURRENT 50U
+/*涓流最大电压:58V*/
+#define CONST_CURRENT_MAX_VOLTAGE 58U
+/*恒压最大电流:50AH*/
+#define CONST_VOLTAGE_MAX_CURRENT 40U
+/*涓流最大电压:58V*/
+#define CONST_VOLTAGE_MAX_VOLTAGE 58U
+/*最大电瓶容量*/
+#define MAX_BATTERY_CAPCITY	500U
+/*电瓶最小容量*/	
+#define MIN_BATTERY_CAPCITY	10U	
+/*最大起充电压补偿值*/
+#define COMPENSATION_MAX 500U
+/*最小起充电压补偿值*/	
+#define COMPENSATION_MIN 100U	
+/*电池单体上限*/
+#define MAX_UNITS      24U
+/*电池单体下限:0表示自动识别*/
+#define MIN_UNITS       0U
+/*二次起充最大电压:50V*/
+#define SECONDE_MAX_VOLTAGE 50U
 
 typedef enum
 {

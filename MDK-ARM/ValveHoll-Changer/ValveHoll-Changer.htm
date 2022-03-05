@@ -3,7 +3,7 @@
 <title>Static Call Graph - [ValveHoll-Changer\ValveHoll-Changer.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ValveHoll-Changer\ValveHoll-Changer.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jan 25 12:10:04 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Mar 05 16:31:43 2022
 <BR><P>
 <H3>Maximum Stack Usage =        604 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1498,8 +1498,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[155]"></a>Error_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
-<BR><BR>[Called By]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<BR><BR>[Called By]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM1_Init
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_RTC_Init
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_IWDG_Init
@@ -1507,6 +1506,7 @@ Global Symbols
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_ADC1_Init
 <LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_MspInit
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 </UL>
 
 <P><STRONG><a name="[149]"></a>FLASH_Init</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, flash.o(i.FLASH_Init))
@@ -2026,8 +2026,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<BR>[Called By]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 </UL>
 
 <P><STRONG><a name="[180]"></a>HAL_UART_MspInit</STRONG> (Thumb, 404 bytes, Stack size 48 bytes, usart.o(i.HAL_UART_MspInit))
@@ -2047,9 +2047,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Start_IT
 </UL>
-<BR>[Called By]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<BR>[Called By]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 </UL>
 
 <P><STRONG><a name="[17b]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_hal_uart.o(i.HAL_UART_RxCpltCallback))
@@ -2214,7 +2214,7 @@ Global Symbols
 <P><STRONG><a name="[29]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.NMI_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[130]"></a>OtherEvent</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, charginghandle.o(i.OtherEvent))
+<P><STRONG><a name="[130]"></a>OtherEvent</STRONG> (Thumb, 152 bytes, Stack size 24 bytes, charginghandle.o(i.OtherEvent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = OtherEvent &rArr; Get_Voltage &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_Voltage
@@ -2366,8 +2366,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
 <LI>Call Chain = main &rArr; CommunicationInit &rArr; Dac_Clibration &rArr; Usart1_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<BR>[Calls]<UL><LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM1_Init
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_RTC_Init
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_IWDG_Init
@@ -2390,6 +2389,7 @@ Global Symbols
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DWIN_Poll
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mdRTU_Handler
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusInit
+<LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -3174,7 +3174,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
-<P><STRONG><a name="[17]"></a>SetBatteryCapacity</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, charginghandle.o(i.SetBatteryCapacity))
+<P><STRONG><a name="[17]"></a>SetBatteryCapacity</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, charginghandle.o(i.SetBatteryCapacity))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = SetBatteryCapacity &rArr; Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData
@@ -3219,7 +3219,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> charginghandle.o(.data)
 </UL>
-<P><STRONG><a name="[19]"></a>Set_UnitElements</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, charginghandle.o(i.Set_UnitElements))
+<P><STRONG><a name="[19]"></a>Set_UnitElements</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, charginghandle.o(i.Set_UnitElements))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = Set_UnitElements &rArr; Report_BackChargingData &rArr; DWIN_WRITE &rArr; HAL_UART_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Report_BackChargingData

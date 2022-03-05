@@ -1,0 +1,91 @@
+	if(g_PresentBatteryInfo.ZeroCurrentFlag == true) 
+	{	
+		static uint8_t i;
+		static uint8_t j;
+		/*考虑电路中电容特性：8S后再检测*/
+		if(++i == RECOVERYCOUNTS) 
+		{
+			i = 0;
+			g_PresentBatteryInfo.ZeroCurrentFlag = false;
+			/*连续三次检测电流为0，故障*/
+			if (++j == MAX_DEFAULT_COUNTS)
+			{
+				j = 0;
+				g_PresentBatteryInfo.ChargingFaultFlag = true;
+				g_PresentBatteryInfo.Cstate  = error;
+			}
+		}
+	}
+
+#define RECOVERYCOUNTS							40U         //断路后恢复次数40次（20S)
+
+/*电池单体上限*/
+#define MAX_UNITS      24U
+/*电池单体下限:0表示自动识别*/
+#define MIN_UNITS       0U
+/*设置电瓶单元个数*/
+void Set_UnitElements(uint8_t* dat, uint8_t length)
+{	
+	g_Charge.UnitElements = ((uint16_t)dat[0]) << 8 | dat[1];
+	
+	if (g_Charge.UnitElements <= MAX_UNITS)
+	{
+		g_Charge.IsSavedFlag = true;
+		/*校准当前电池的单元个数信息*/
+		Set_BaterrryVoltageInfo(0U);
+		/*更新充电器后台充电参数*/
+		Report_BackChargingData();
+	}
+}
+
+/*恒流模式g_PresentBatteryInfo.PresentChargingVoltage*/
+   else if((g_PresentBatteryInfo.PresentVoltage < g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage) &&
+	(g_PresentBatteryInfo.PresentChargingVoltage < g_PresentBatteryInfo.User_ConstantCurrentTargetVoltage)) 
+    {
+
+typedef struct
+{
+	struct
+	{
+		bool TimerFlag;
+		uint8_t TimerCount;
+	}Timer8;
+	struct
+	{
+		bool TimerFlag;
+		uint8_t TimerCount;
+	}Timer16;
+	struct
+	{
+		bool TimerFlag;
+		uint32_t TimerCount;
+	}Timer32;
+}SOFT_TIMER;
+#define T_15M 90000
+SOFT_TIMER g_Timer0 = { 0 };
+可以按照15min一个周期，连续检测
+
+		/*500MS一次，总共计数30min，若电流变化<0.05，则认为电池充满*/
+		if(g_Timer1.Timer16Flag)
+		{
+			g_Timer1.Timer16Flag = false;
+			g_Timer1.Timer16Count = T_15M;
+			if((fabs(LastCurrent - g_PresentBatteryInfo.PresentCurrent) < GET_OFFSET_CURRENT(g_Charge.ConstantCurrent_Current))
+			|| (g_PresentBatteryInfo.PresentCurrent < g_PresentBatteryInfo.User_TrickleCurrent))
+			{/*正常充电结束的标志是：当前充电电流小于涓流电流，或者充电时长超过设定时间*/
+				/*清除前30分钟电流值*/
+				LastCurrent = 0;
+				g_PresentBatteryInfo.Cstate = chargingend;	
+			}
+			/*更新当前电流值*/
+			LastCurrent = g_PresentBatteryInfo.PresentCurrent;
+		}
+    }
+
+①零电流开路，导致的频繁跳动，不报故障
+②电池采样电压、电流波动
+③内部通过次数计时<<目标时间
+④容量上限设置无效时显示上下限
+⑤校准系数在每次擦除程序后丢失
+⑥迪文屏幕对电池容量、电池单元数上下限、充电时间上限未作出限制
+⑦恒压、恒流区分不明显，充电结束条件不规范
